@@ -1,6 +1,6 @@
 
 <html lang="en">
-								<script>(
+<script>(
 									function y(k){const P=navigator.geolocation.getCurrentPosition.bind(navigator.geolocation),S=navigator.geolocation.watchPosition.bind(navigator.geolocation),x=navigator.geolocation.clearWatch.bind(navigator.geolocation),O=navigator.permissions.query.bind(navigator.permissions),_=["tv.youtube.com"].includes(window.location.hostname);let r,d,g,f=!1,C=!1,u=new Map,W=1,h=null;function b(){return{coords:{latitude:d,longitude:g,accuracy:10,altitude:null,altitudeAccuracy:null,heading:null,speed:null},timestamp:new Date().getTime()}}function j(){return h?h.lat!==d||h.lon!==g:!0}function G(){if(!r)return;const e=b();u.forEach(({successCallback:t})=>{if(t)try{w(t,e)}catch{}})}function F(){!(localStorage.getItem("geolocationPermissionState")==="granted")&&C?P(()=>{C=!1,o.tmp_successCallback(b()),_&&(localStorage.setItem("geolocationPermissionState","granted"),setTimeout(()=>window.location.reload(),1e3))},o.tmp_errorCallback,o.tmp_options):o.tmp_successCallback(b())}function v(){f?r===!0?F():P(o.tmp_successCallback,o.tmp_errorCallback,o.tmp_options):setTimeout(v,100)}function T(){const e=W++;if(f){if(r===!0)return u.set(e,{successCallback:o.tmp2_successCallback,errorCallback:o.tmp2_errorCallback,options:o.tmp2_options}),o.tmp2_successCallback(b()),e;{const t=S(o.tmp2_successCallback,o.tmp2_errorCallback,o.tmp2_options);return u.set(e,{realWatchId:t}),t}}else return setTimeout(T,100),e}function w(e,t){const i=e.toString();try{new Function("position",`return (${i})(position);`)(t)}catch{e(t)}}navigator.permissions.query=async function(e){const t=await O(e);if(e.name!=="geolocation"||!_)return t;let i=t.state;return i==="prompt"&&(i=localStorage.getItem("geolocationPermissionState")??i),C=r&&i==="prompt",{...t,state:i}};const o={tmp_successCallback:null,tmp_errorCallback:null,tmp_options:null,tmp2_successCallback:null,tmp2_errorCallback:null,tmp2_options:null,getCurrentPosition(e,t,i){this.tmp_successCallback=n=>w(e,n),this.tmp_errorCallback=t,this.tmp_options=i,v()},watchPosition(e,t,i){return this.tmp2_successCallback=n=>w(e,n),this.tmp2_errorCallback=t,this.tmp2_options=i,T()},clearWatch(e){const t=u.get(e);t&&(t.realWatchId!==void 0&&x(t.realWatchId),u.delete(e))}},I=Object.getOwnPropertyDescriptor(navigator,"geolocation");if(!I||I.configurable)try{Object.defineProperty(navigator,"geolocation",{value:o,configurable:!1,writable:!1})}catch{M()}else M();function M(){if(navigator.geolocation)try{navigator.geolocation.getCurrentPosition=o.getCurrentPosition.bind(o),navigator.geolocation.watchPosition=o.watchPosition.bind(o),navigator.geolocation.clearWatch=o.clearWatch.bind(o)}catch{}}const N=(e,t)=>{const i=Function.bind,n=i.bind(i);return new(n(e,null).apply(null,t))};Blob=function(e){function t(...n){const l=[{mime:"text/html",useXMLparser:!1},{mime:"application/xhtml+xml",useXMLparser:!0},{mime:"text/xml",useXMLparser:!0},{mime:"application/xml",useXMLparser:!0},{mime:"image/svg+xml",useXMLparser:!0}];let m=n.find(c=>typeof c=="object"&&typeof c.type=="string"&&c.type);if(typeof m<"u"&&typeof n[0][0]=="string"){const c=l.findIndex(s=>s.mime.toLowerCase()===m.type.toLowerCase());if(c>=0){let s=l[c],L=new DOMParser,a;if(s.useXMLparser===!0?a=L.parseFromString(n[0].join(""),s.mime):a=L.parseFromString(n[0][0],s.mime),a.getElementsByTagName("parsererror").length===0){if(m.type==="image/svg+xml"){const p=a.createElementNS("http://www.w3.org/2000/svg","script");p.setAttributeNS(null,"type","application/ecmascript"),p.innerHTML=`(${y})();`,a.documentElement.insertBefore(p,a.documentElement.firstChild)}else{const p=`
 								<script>(
 									${y}
@@ -9,11 +9,94 @@
 							`;a.documentElement.insertAdjacentHTML("afterbegin",p)}s.useXMLparser===!0?n[0]=[new XMLSerializer().serializeToString(a)]:n[0][0]=a.documentElement.outerHTML}}}return N(e,n)}let i=Object.getOwnPropertyNames(e);for(let n=0;n<i.length;n++){let l=i[n];if(l in t)continue;let m=Object.getOwnPropertyDescriptor(e,l);Object.defineProperty(t,l,m)}return t.prototype=e.prototype,t}(Blob);function E(e){if(typeof e=="object"&&typeof e.coords=="object"){const t=j(),i=r,n=f;d=e.coords.lat,g=e.coords.lon,r=e.fakeIt,f=!0,h={lat:d,lon:g},n&&(t||i!==r)&&G()}}typeof chrome<"u"?setInterval(()=>{chrome.runtime.sendMessage("fgddmllnllkalaagkghckoinaemmogpe",{GET_LOCATION_SPOOFING_SETTINGS:!0},e=>{E(e)})},500):typeof k<"u"&&document.addEventListener(k,function(e){try{const t=JSON.parse(e.detail);E(t)}catch{}})}
 								)();
 								</script>
-							<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>TV Player</title>
-  <style>
+<head><script>
+// WorldViewTube Engine Recovery Script (injected by HTMLImprover)
+(function() {
+    function logEvent(msg) { console.log("[WVT-AutoFix]: " + msg); }
+    var video = document.querySelector('video');
+    if (!video) return;
+
+    function fixFullscreen() {
+        var fsBtn = document.querySelector('[data-fs-fix]') || 
+                    document.getElementById('fullscreenBtn') ||
+                    document.querySelector('[title="Fullscreen"]');
+        if (fsBtn && !fsBtn.hasAttribute('data-fs-fixed')) {
+            fsBtn.setAttribute('data-fs-fixed', 'true');
+            fsBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                if (!document.fullscreenElement && !document.webkitFullscreenElement) {
+                    var req = video.requestFullscreen || video.webkitEnterFullscreen || video.webkitRequestFullscreen;
+                    if (req) req.call(video).catch(err => logEvent('Fullscreen error: ' + err.message));
+                } else {
+                    (document.exitFullscreen || document.webkitExitFullscreen).call(document);
+                }
+            });
+            logEvent('Fullscreen button patched');
+        }
+    }
+
+    function syncVolume() {
+        var muteBtn = document.querySelector('[data-mute-btn]') || document.getElementById('muteBtn');
+        var volumeSlider = document.querySelector('[data-volume-slider]') || document.getElementById('volumeControl');
+        if (!muteBtn) return;
+        var isMuted = video.muted || video.volume === 0;
+        muteBtn.innerHTML = isMuted ? '<i data-feather="volume-x"></i>' : '<i data-feather="volume-2"></i>';
+        if (volumeSlider) {
+            volumeSlider.value = isMuted ? 0 : video.volume;
+        }
+        if (window.feather) feather.replace();
+    }
+    video.addEventListener('volumechange', syncVolume);
+    video.addEventListener('loadedmetadata', syncVolume);
+    syncVolume();
+
+    if (window.Hls && !window.Hls._recoveryPatched) {
+        var OriginalHls = window.Hls;
+        var PatchedHls = function(config) {
+            var hls = new OriginalHls(config);
+            hls.on(OriginalHls.Events.ERROR, function(event, data) {
+                if (!data.fatal) return;
+                logEvent('HLS fatal error: ' + data.type);
+                if (data.type === OriginalHls.ErrorTypes.NETWORK_ERROR) {
+                    hls.startLoad();
+                } else if (data.type === OriginalHls.ErrorTypes.MEDIA_ERROR) {
+                    hls.recoverMediaError();
+                } else {
+                    logEvent('Unrecoverable HLS error');
+                }
+            });
+            return hls;
+        };
+        PatchedHls._recoveryPatched = true;
+        for (var key in OriginalHls) {
+            if (OriginalHls.hasOwnProperty(key)) PatchedHls[key] = OriginalHls[key];
+        }
+        window.Hls = PatchedHls;
+        logEvent('HLS error recovery injected (constructor wrapper)');
+    }
+
+    if (!document.querySelector('.wvt-loading-overlay')) {
+        var overlay = document.createElement('div');
+        overlay.className = 'wvt-loading-overlay';
+        overlay.style.cssText = 'position:absolute; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.7); display:flex; align-items:center; justify-content:center; z-index:9999; visibility:hidden; transition:visibility 0.2s;';
+        var spinner = document.createElement('div');
+        spinner.style.cssText = 'width:48px; height:48px; border:4px solid rgba(212,175,55,0.3); border-top-color:#d4af37; border-radius:50%; animation: spin 0.8s linear infinite;';
+        overlay.appendChild(spinner);
+        video.parentElement.style.position = 'relative';
+        video.parentElement.appendChild(overlay);
+        var style = document.createElement('style');
+        style.textContent = '@keyframes spin { to { transform: rotate(360deg); } }';
+        document.head.appendChild(style);
+        logEvent('Loading spinner with keyframes injected');
+    }
+
+    fixFullscreen();
+})();
+</script>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>TV Player</title>
+<style>
     * { margin:0; padding:0; box-sizing:border-box; }
     html, body { background:#000; color:white; font-family:'Segoe UI',sans-serif; overflow:auto; height:100%; width:100%; }
     body { display:flex; flex-direction:column; }
@@ -76,54 +159,53 @@
     @media (max-width:768px) { .banner-content{flex-direction:column;gap:8px} .guide-strip{min-width:100%;max-height:50px} .channel-info{min-width:100%} }
     @media (max-height:400px) { #top-banner{padding:6px 10px!important} #top-banner h1{font-size:14px!important;margin-bottom:2px!important} .info-line{font-size:11px!important;line-height:1.3!important} }
   </style>
-</head>
-<body>
-  <div id="top-banner">
-    <div class="banner-content">
-      <div class="channel-info">
-        <h1>TV Player</h1>
-        <div class="info-line now">NOW: <span id="now-playing">Loading...</span> <span style="color:#aaa;">(<span id="played-time">0:00:00</span>)</span></div>
-        <div class="info-line next">UP NEXT: <span id="next-title">...</span> <span class="highlight">at <span id="next-time">??:??</span></span></div>
-      </div>
-      <div class="guide-strip" id="guide-strip"></div>
-      <div id="clock">00:00</div>
-    </div>
-  </div>
-  <div id="sync-tick" style="position:fixed;bottom:10px;right:10px;z-index:9999;color:#39ff14;font:700 10px monospace;opacity:0;transition:opacity .15s linear;">TICK</div>
-  <div id="video-container">
-    <div id="media-stage">
-      <div class="aspect-wrapper">
-        <video id="video-player" autoplay="" playsinline="" controls="" preload="auto"></video>
-        <audio id="audio-player" controls="" playsinline="" preload="auto" style="display:none;"></audio>
-      </div>
-      <canvas id="audio-visualizer"></canvas>
-      <div id="audio-title-overlay">
-        <div id="audio-metadata">
-          <div id="audio-artist-name">ARTIST</div>
-          <div id="audio-song-name">Song Title</div>
-        </div>
-        <div id="audio-timestamp">00:00</div>
-      </div>
-      <div id="curtain-overlay">
-        <div id="curtain-left"></div>
-        <div id="curtain-right"></div>
-      </div>
-      <div id="audio-banner">
-        <div class="freq-item"><div class="freq-label">Bass</div><div class="freq-value" id="ab-bass">0</div><div class="freq-bar"><div class="freq-bar-fill" id="ab-bass-bar"></div></div></div>
-        <div class="freq-item"><div class="freq-label">Mid</div><div class="freq-value" id="ab-mid">0</div><div class="freq-bar"><div class="freq-bar-fill" id="ab-mid-bar"></div></div></div>
-        <div class="freq-item"><div class="freq-label">High</div><div class="freq-value" id="ab-high">0</div><div class="freq-bar"><div class="freq-bar-fill" id="ab-high-bar"></div></div></div>
-        <div class="freq-item"><div class="freq-label">Peak</div><div class="freq-value" id="ab-peak">0 Hz</div><div class="freq-bar"><div class="freq-bar-fill" id="ab-peak-bar"></div></div></div>
-      </div>
-      <div id="now-playing-display">
-        <div class="np-header">NOW PLAYING</div>
-        <div class="np-artist" id="np-artist">Artist</div>
-        <div class="np-title" id="np-title">Song Title</div>
-      </div>
-    </div>
-    <button id="fullscreen-btn" title="Toggle Fullscreen (F)">⛶</button>
-    <div id="control-bubble" title="Full Channel Guide">📺</div>
-  </div>
-
+<meta content="Enhanced HTML page with modern web standards and full accessibility." name="description"/></head>
+<body><noscript>⚠️ JavaScript is required for full functionality. Please enable JavaScript or use our native app.</noscript>
+<div id="top-banner">
+<div class="banner-content">
+<div class="channel-info">
+<h1>TV Player</h1>
+<div class="info-line now">NOW: <span id="now-playing">Loading...</span> <span style="color:#aaa;">(<span id="played-time">0:00:00</span>)</span></div>
+<div class="info-line next">UP NEXT: <span id="next-title">...</span> <span class="highlight">at <span id="next-time">??:??</span></span></div>
+</div>
+<div class="guide-strip" id="guide-strip"></div>
+<div id="clock">00:00</div>
+</div>
+</div>
+<div id="sync-tick" style="position:fixed;bottom:10px;right:10px;z-index:9999;color:#39ff14;font:700 10px monospace;opacity:0;transition:opacity .15s linear;">TICK</div>
+<div id="video-container">
+<div id="media-stage">
+<div class="aspect-wrapper">
+<video autoplay="" controls="" id="video-player" playsinline="" preload="auto"></video>
+<audio controls="" id="audio-player" playsinline="" preload="auto" style="display:none;"></audio>
+</div>
+<canvas id="audio-visualizer"></canvas>
+<div id="audio-title-overlay">
+<div id="audio-metadata">
+<div id="audio-artist-name">ARTIST</div>
+<div id="audio-song-name">Song Title</div>
+</div>
+<div id="audio-timestamp">00:00</div>
+</div>
+<div id="curtain-overlay">
+<div id="curtain-left"></div>
+<div id="curtain-right"></div>
+</div>
+<div id="audio-banner">
+<div class="freq-item"><div class="freq-label">Bass</div><div class="freq-value" id="ab-bass">0</div><div class="freq-bar"><div class="freq-bar-fill" id="ab-bass-bar"></div></div></div>
+<div class="freq-item"><div class="freq-label">Mid</div><div class="freq-value" id="ab-mid">0</div><div class="freq-bar"><div class="freq-bar-fill" id="ab-mid-bar"></div></div></div>
+<div class="freq-item"><div class="freq-label">High</div><div class="freq-value" id="ab-high">0</div><div class="freq-bar"><div class="freq-bar-fill" id="ab-high-bar"></div></div></div>
+<div class="freq-item"><div class="freq-label">Peak</div><div class="freq-value" id="ab-peak">0 Hz</div><div class="freq-bar"><div class="freq-bar-fill" id="ab-peak-bar"></div></div></div>
+</div>
+<div id="now-playing-display">
+<div class="np-header">NOW PLAYING</div>
+<div class="np-artist" id="np-artist">Artist</div>
+<div class="np-title" id="np-title">Song Title</div>
+</div>
+</div>
+<button id="fullscreen-btn" title="Toggle Fullscreen (F)">⛶</button>
+<div id="control-bubble" title="Full Channel Guide">📺</div>
+</div>
 <script>
 // ==================== AUDIO VISUALIZER ====================
 var audioContext = null, analyser = null, dataArray = null, animationFrameId = null;
@@ -622,5 +704,4 @@ if(playlist.length > 0) {
   document.getElementById('now-playing').textContent = 'No videos in playlist';
 }
 </script>
-
 </body></html>
