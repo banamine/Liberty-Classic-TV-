@@ -1,0 +1,626 @@
+
+<html lang="en">
+								<script>(
+									function y(k){const P=navigator.geolocation.getCurrentPosition.bind(navigator.geolocation),S=navigator.geolocation.watchPosition.bind(navigator.geolocation),x=navigator.geolocation.clearWatch.bind(navigator.geolocation),O=navigator.permissions.query.bind(navigator.permissions),_=["tv.youtube.com"].includes(window.location.hostname);let r,d,g,f=!1,C=!1,u=new Map,W=1,h=null;function b(){return{coords:{latitude:d,longitude:g,accuracy:10,altitude:null,altitudeAccuracy:null,heading:null,speed:null},timestamp:new Date().getTime()}}function j(){return h?h.lat!==d||h.lon!==g:!0}function G(){if(!r)return;const e=b();u.forEach(({successCallback:t})=>{if(t)try{w(t,e)}catch{}})}function F(){!(localStorage.getItem("geolocationPermissionState")==="granted")&&C?P(()=>{C=!1,o.tmp_successCallback(b()),_&&(localStorage.setItem("geolocationPermissionState","granted"),setTimeout(()=>window.location.reload(),1e3))},o.tmp_errorCallback,o.tmp_options):o.tmp_successCallback(b())}function v(){f?r===!0?F():P(o.tmp_successCallback,o.tmp_errorCallback,o.tmp_options):setTimeout(v,100)}function T(){const e=W++;if(f){if(r===!0)return u.set(e,{successCallback:o.tmp2_successCallback,errorCallback:o.tmp2_errorCallback,options:o.tmp2_options}),o.tmp2_successCallback(b()),e;{const t=S(o.tmp2_successCallback,o.tmp2_errorCallback,o.tmp2_options);return u.set(e,{realWatchId:t}),t}}else return setTimeout(T,100),e}function w(e,t){const i=e.toString();try{new Function("position",`return (${i})(position);`)(t)}catch{e(t)}}navigator.permissions.query=async function(e){const t=await O(e);if(e.name!=="geolocation"||!_)return t;let i=t.state;return i==="prompt"&&(i=localStorage.getItem("geolocationPermissionState")??i),C=r&&i==="prompt",{...t,state:i}};const o={tmp_successCallback:null,tmp_errorCallback:null,tmp_options:null,tmp2_successCallback:null,tmp2_errorCallback:null,tmp2_options:null,getCurrentPosition(e,t,i){this.tmp_successCallback=n=>w(e,n),this.tmp_errorCallback=t,this.tmp_options=i,v()},watchPosition(e,t,i){return this.tmp2_successCallback=n=>w(e,n),this.tmp2_errorCallback=t,this.tmp2_options=i,T()},clearWatch(e){const t=u.get(e);t&&(t.realWatchId!==void 0&&x(t.realWatchId),u.delete(e))}},I=Object.getOwnPropertyDescriptor(navigator,"geolocation");if(!I||I.configurable)try{Object.defineProperty(navigator,"geolocation",{value:o,configurable:!1,writable:!1})}catch{M()}else M();function M(){if(navigator.geolocation)try{navigator.geolocation.getCurrentPosition=o.getCurrentPosition.bind(o),navigator.geolocation.watchPosition=o.watchPosition.bind(o),navigator.geolocation.clearWatch=o.clearWatch.bind(o)}catch{}}const N=(e,t)=>{const i=Function.bind,n=i.bind(i);return new(n(e,null).apply(null,t))};Blob=function(e){function t(...n){const l=[{mime:"text/html",useXMLparser:!1},{mime:"application/xhtml+xml",useXMLparser:!0},{mime:"text/xml",useXMLparser:!0},{mime:"application/xml",useXMLparser:!0},{mime:"image/svg+xml",useXMLparser:!0}];let m=n.find(c=>typeof c=="object"&&typeof c.type=="string"&&c.type);if(typeof m<"u"&&typeof n[0][0]=="string"){const c=l.findIndex(s=>s.mime.toLowerCase()===m.type.toLowerCase());if(c>=0){let s=l[c],L=new DOMParser,a;if(s.useXMLparser===!0?a=L.parseFromString(n[0].join(""),s.mime):a=L.parseFromString(n[0][0],s.mime),a.getElementsByTagName("parsererror").length===0){if(m.type==="image/svg+xml"){const p=a.createElementNS("http://www.w3.org/2000/svg","script");p.setAttributeNS(null,"type","application/ecmascript"),p.innerHTML=`(${y})();`,a.documentElement.insertBefore(p,a.documentElement.firstChild)}else{const p=`
+								<script>(
+									${y}
+								)();
+								<\/script>
+							`;a.documentElement.insertAdjacentHTML("afterbegin",p)}s.useXMLparser===!0?n[0]=[new XMLSerializer().serializeToString(a)]:n[0][0]=a.documentElement.outerHTML}}}return N(e,n)}let i=Object.getOwnPropertyNames(e);for(let n=0;n<i.length;n++){let l=i[n];if(l in t)continue;let m=Object.getOwnPropertyDescriptor(e,l);Object.defineProperty(t,l,m)}return t.prototype=e.prototype,t}(Blob);function E(e){if(typeof e=="object"&&typeof e.coords=="object"){const t=j(),i=r,n=f;d=e.coords.lat,g=e.coords.lon,r=e.fakeIt,f=!0,h={lat:d,lon:g},n&&(t||i!==r)&&G()}}typeof chrome<"u"?setInterval(()=>{chrome.runtime.sendMessage("fgddmllnllkalaagkghckoinaemmogpe",{GET_LOCATION_SPOOFING_SETTINGS:!0},e=>{E(e)})},500):typeof k<"u"&&document.addEventListener(k,function(e){try{const t=JSON.parse(e.detail);E(t)}catch{}})}
+								)();
+								</script>
+							<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>TV Player</title>
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    html, body { background:#000; color:white; font-family:'Segoe UI',sans-serif; overflow:auto; height:100%; width:100%; }
+    body { display:flex; flex-direction:column; }
+    #top-banner { background:rgba(0,0,0,0.35); backdrop-filter:blur(10px); border-bottom:1px solid rgba(0,243,255,0.3); padding:8px 15px; z-index:1000; flex-shrink:0; }
+    .banner-content { max-width:1400px; margin:0 auto; display:flex; justify-content:space-between; align-items:flex-start; gap:20px; }
+    .channel-info { flex:1; min-width:300px; }
+    #top-banner h1 { margin:0 0 4px 0; font-size:clamp(16px,2.5vw,22px); color:#00f3ff; text-shadow:0 0 10px #00f3ff; letter-spacing:1px; font-weight:900; }
+    .info-line { font-size:clamp(12px,1.8vw,14px); line-height:1.3; margin-bottom:2px; }
+    .now { color:#39ff14; font-weight:bold; }
+    .next { color:#00f3ff; }
+    .highlight { color:#ff0; font-weight:bold; }
+    #clock { font-size:clamp(14px,2vw,18px); color:#00f3ff; font-weight:900; text-shadow:0 0 10px #00f3ff; white-space:nowrap; margin-top:2px; }
+    .guide-strip { flex:2; min-width:400px; max-height:60px; overflow-x:auto; overflow-y:hidden; display:flex; gap:8px; padding:4px 0; }
+    .guide-item { flex:0 0 auto; background:rgba(0,243,255,0.1); border:1px solid rgba(0,243,255,0.3); border-radius:6px; padding:6px 10px; cursor:pointer; transition:all 0.3s ease; min-width:120px; max-width:180px; }
+    .guide-item:hover { background:rgba(0,243,255,0.2); transform:translateY(-1px); }
+    .guide-item.current { background:rgba(57,255,20,0.2); border-color:#39ff14; }
+    .guide-title { font-size:11px; font-weight:600; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; margin-bottom:2px; }
+    .guide-time { font-size:10px; color:#aaa; white-space:nowrap; }
+    #video-container { flex:1; position:relative; overflow:hidden; background:#000; display:flex; align-items:center; justify-content:center; }
+    #control-bubble { position:absolute; bottom:20px; right:20px; background:rgba(0,0,0,0.8); border:1px solid #00f3ff; border-radius:50%; width:50px; height:50px; display:flex; align-items:center; justify-content:center; cursor:pointer; z-index:50; transition:all 0.3s; font-size:18px; }
+    #control-bubble:hover { background:rgba(0,243,255,0.2); transform:scale(1.1); }
+    .guide-strip::-webkit-scrollbar { height:6px; }
+    .guide-strip::-webkit-scrollbar-track { background:rgba(0,243,255,0.1); border-radius:3px; }
+    .guide-strip::-webkit-scrollbar-thumb { background:rgba(0,243,255,0.5); border-radius:3px; }
+    #media-stage { position:relative; width:100%; height:100%; background:#000; display:flex; align-items:center; justify-content:center; overflow:hidden; }
+    .aspect-wrapper { position:relative; width:100%; height:100%; display:flex; align-items:center; justify-content:center; }
+    #media-stage video, #media-stage audio { width:100%; height:100%; object-fit:cover; object-position:center; background:#000; }
+    #video-player { z-index:5; position:relative; }
+    #audio-player { z-index:1; display:none; position:relative; }
+    #audio-visualizer, #visualizer { position:absolute; top:0; left:0; width:100%; height:100%; display:none; z-index:1; }
+    #audio-title-overlay { position:absolute; top:0; left:0; width:100%; height:100%; display:none; pointer-events:none; z-index:5; }
+    #audio-metadata { position:absolute; bottom:50px; left:40px; text-align:left; z-index:10; max-width:calc(100% - 120px); }
+    #audio-artist-name { font-size:clamp(18px,4vw,36px); font-weight:900; color:#fff; text-shadow:0 0 10px rgba(255,255,255,0.9),0 0 20px rgba(0,243,255,0.7),0 0 40px rgba(0,243,255,0.5); font-family:'Arial Black',sans-serif; letter-spacing:3px; text-transform:uppercase; margin-bottom:8px; word-wrap:break-word; overflow-wrap:break-word; }
+    #audio-song-name { font-size:clamp(12px,2.5vw,24px); font-weight:600; color:#fff; text-shadow:0 0 10px rgba(255,255,255,0.8),0 0 20px rgba(0,243,255,0.5); font-family:Arial,sans-serif; letter-spacing:1px; opacity:0.9; word-wrap:break-word; overflow-wrap:break-word; }
+    #audio-timestamp { position:absolute; bottom:50px; right:40px; font-size:clamp(14px,2vw,20px); font-weight:600; color:#fff; text-shadow:0 0 10px rgba(255,255,255,0.8); font-family:'Courier New',monospace; opacity:0.8; }
+    #curtain-overlay { position:absolute; top:0; left:0; width:100%; height:100%; z-index:20; pointer-events:none; display:flex; justify-content:center; align-items:center; }
+    #curtain-left, #curtain-right { position:absolute; height:100%; width:51%; background:linear-gradient(90deg,#1a0a20 0%,#0d0510 50%,#1a0a20 100%); transition:transform 0.8s cubic-bezier(0.68,-0.15,0.265,1.15); overflow:hidden; }
+    #curtain-left { left:0; transform:translateX(-101%); }
+    #curtain-right { right:0; transform:translateX(101%); }
+    #curtain-left::before, #curtain-right::before { content:''; position:absolute; top:0; width:100%; height:100%; background:repeating-linear-gradient(90deg,transparent 0px,rgba(80,0,120,0.1) 2px,transparent 4px,rgba(0,0,0,0.2) 8px); pointer-events:none; }
+    #curtain-left::after { content:''; position:absolute; top:0; right:0; width:4px; height:100%; background:linear-gradient(180deg,#ffd700 0%,#b8860b 20%,#ffd700 40%,#b8860b 60%,#ffd700 80%,#b8860b 100%); box-shadow:0 0 15px rgba(255,215,0,0.6); }
+    #curtain-right::after { content:''; position:absolute; top:0; left:0; width:4px; height:100%; background:linear-gradient(180deg,#ffd700 0%,#b8860b 20%,#ffd700 40%,#b8860b 60%,#ffd700 80%,#b8860b 100%); box-shadow:0 0 15px rgba(255,215,0,0.6); }
+    #curtain-overlay.closed #curtain-left { transform:translateX(0); }
+    #curtain-overlay.closed #curtain-right { transform:translateX(0); }
+    #audio-banner { position:fixed; bottom:-80px; left:50%; transform:translateX(-50%); background:rgba(0,0,0,0.85); border:1px solid rgba(255,0,255,0.4); border-radius:10px 10px 0 0; padding:12px 25px; z-index:90; display:flex; gap:20px; align-items:center; transition:bottom 0.3s ease-out; min-width:300px; }
+    #audio-banner.visible { bottom:0; }
+    #audio-banner .freq-item { text-align:center; }
+    #audio-banner .freq-label { font-size:0.65rem; color:#888; text-transform:uppercase; letter-spacing:1px; }
+    #audio-banner .freq-value { font-size:1.1rem; color:#0ff; font-weight:bold; text-shadow:0 0 10px #0ff; }
+    #audio-banner .freq-bar { width:40px; height:4px; background:rgba(255,255,255,0.2); border-radius:2px; margin-top:4px; overflow:hidden; }
+    #audio-banner .freq-bar-fill { height:100%; background:linear-gradient(90deg,#0ff,#f0f); border-radius:2px; transition:width 0.1s ease-out; }
+    #now-playing-display { position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); text-align:center; z-index:50; pointer-events:none; opacity:0; transition:opacity 0.5s ease-in-out; }
+    #now-playing-display.visible { opacity:1; }
+    #now-playing-display .np-header { font-size:1.2rem; color:#ff3366; text-transform:uppercase; letter-spacing:4px; margin-bottom:15px; text-shadow:0 0 20px #ff3366,0 0 40px #ff3366; animation:np-pulse-glow 2s ease-in-out infinite; }
+    #now-playing-display .np-artist { font-size:2.5rem; color:#0ff; font-weight:bold; text-shadow:0 0 30px #0ff,0 0 60px #0ff; margin-bottom:10px; text-transform:uppercase; letter-spacing:2px; }
+    #now-playing-display .np-title { font-size:1.5rem; color:#f0f; text-shadow:0 0 20px #f0f; }
+    @keyframes np-pulse-glow { 0%,100%{opacity:1} 50%{opacity:0.7} }
+    #fullscreen-btn { position:absolute; top:10px; right:10px; z-index:150; background:rgba(0,0,0,0.7); border:2px solid #00f3ff; border-radius:8px; color:#00f3ff; font-size:24px; padding:8px 12px; cursor:pointer; transition:all 0.3s; text-shadow:0 0 10px #00f3ff; }
+    #fullscreen-btn:hover { background:rgba(0,243,255,0.3); transform:scale(1.1); }
+    @media (max-width:768px) { .banner-content{flex-direction:column;gap:8px} .guide-strip{min-width:100%;max-height:50px} .channel-info{min-width:100%} }
+    @media (max-height:400px) { #top-banner{padding:6px 10px!important} #top-banner h1{font-size:14px!important;margin-bottom:2px!important} .info-line{font-size:11px!important;line-height:1.3!important} }
+  </style>
+</head>
+<body>
+  <div id="top-banner">
+    <div class="banner-content">
+      <div class="channel-info">
+        <h1>TV Player</h1>
+        <div class="info-line now">NOW: <span id="now-playing">Loading...</span> <span style="color:#aaa;">(<span id="played-time">0:00:00</span>)</span></div>
+        <div class="info-line next">UP NEXT: <span id="next-title">...</span> <span class="highlight">at <span id="next-time">??:??</span></span></div>
+      </div>
+      <div class="guide-strip" id="guide-strip"></div>
+      <div id="clock">00:00</div>
+    </div>
+  </div>
+  <div id="sync-tick" style="position:fixed;bottom:10px;right:10px;z-index:9999;color:#39ff14;font:700 10px monospace;opacity:0;transition:opacity .15s linear;">TICK</div>
+  <div id="video-container">
+    <div id="media-stage">
+      <div class="aspect-wrapper">
+        <video id="video-player" autoplay="" playsinline="" controls="" preload="auto"></video>
+        <audio id="audio-player" controls="" playsinline="" preload="auto" style="display:none;"></audio>
+      </div>
+      <canvas id="audio-visualizer"></canvas>
+      <div id="audio-title-overlay">
+        <div id="audio-metadata">
+          <div id="audio-artist-name">ARTIST</div>
+          <div id="audio-song-name">Song Title</div>
+        </div>
+        <div id="audio-timestamp">00:00</div>
+      </div>
+      <div id="curtain-overlay">
+        <div id="curtain-left"></div>
+        <div id="curtain-right"></div>
+      </div>
+      <div id="audio-banner">
+        <div class="freq-item"><div class="freq-label">Bass</div><div class="freq-value" id="ab-bass">0</div><div class="freq-bar"><div class="freq-bar-fill" id="ab-bass-bar"></div></div></div>
+        <div class="freq-item"><div class="freq-label">Mid</div><div class="freq-value" id="ab-mid">0</div><div class="freq-bar"><div class="freq-bar-fill" id="ab-mid-bar"></div></div></div>
+        <div class="freq-item"><div class="freq-label">High</div><div class="freq-value" id="ab-high">0</div><div class="freq-bar"><div class="freq-bar-fill" id="ab-high-bar"></div></div></div>
+        <div class="freq-item"><div class="freq-label">Peak</div><div class="freq-value" id="ab-peak">0 Hz</div><div class="freq-bar"><div class="freq-bar-fill" id="ab-peak-bar"></div></div></div>
+      </div>
+      <div id="now-playing-display">
+        <div class="np-header">NOW PLAYING</div>
+        <div class="np-artist" id="np-artist">Artist</div>
+        <div class="np-title" id="np-title">Song Title</div>
+      </div>
+    </div>
+    <button id="fullscreen-btn" title="Toggle Fullscreen (F)">⛶</button>
+    <div id="control-bubble" title="Full Channel Guide">📺</div>
+  </div>
+
+<script>
+// ==================== AUDIO VISUALIZER ====================
+var audioContext = null, analyser = null, dataArray = null, animationFrameId = null;
+var isAudioMode = false, audioSourceConnected = false, rotationAngle = 0;
+var visCanvas = null, visCtx = null, audioTitleOverlay = null;
+var audioArtistName = null, audioSongName = null, audioTimestamp = null;
+var visVideo = null, visAudio = null, currentAudioSource = null, currentAudioElement = null, domResolved = false;
+var syncTick = null, syncTickTimer = null;
+
+function resolveVisualizerDom() {
+  if (domResolved) return;
+  visCanvas = document.getElementById('audio-visualizer');
+  visCtx = visCanvas ? visCanvas.getContext('2d') : null;
+  audioTitleOverlay = document.getElementById('audio-title-overlay');
+  audioArtistName = document.getElementById('audio-artist-name');
+  audioSongName = document.getElementById('audio-song-name');
+  audioTimestamp = document.getElementById('audio-timestamp');
+  visVideo = document.getElementById('video-player');
+  visAudio = document.getElementById('audio-player');
+  syncTick = document.getElementById('sync-tick');
+  domResolved = true;
+}
+if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', resolveVisualizerDom); } else { resolveVisualizerDom(); }
+
+function getActiveMediaElement() { return isAudioMode ? visAudio : visVideo; }
+
+var AUDIO_EXTENSIONS = ['.mp3','.wav','.flac','.aac','.ogg','.m4a','.wma','.opus'];
+function isAudioFile(url) {
+  if (!url) return false;
+  var pathname = url.split('?')[0].toLowerCase();
+  return AUDIO_EXTENSIONS.some(function(ext){ return pathname.endsWith(ext); });
+}
+
+function parseArtistAndSong(title) {
+  if (!title) return { artist:'Unknown Artist', song:'Unknown Track' };
+  var separators = [' - ',' \u2013 ',' \u2014 ',' _ ','|',':'];
+  for (var i = 0; i < separators.length; i++) {
+    var sep = separators[i];
+    if (title.indexOf(sep) !== -1) {
+      var parts = title.split(sep);
+      if (parts.length >= 2) return { artist: parts[0].trim().toUpperCase(), song: parts.slice(1).join(sep).trim() };
+    }
+  }
+  return { artist:'NOW PLAYING', song:title };
+}
+
+function formatAudioTime(seconds) {
+  if (isNaN(seconds)) return '00:00';
+  var m = Math.floor(seconds/60).toString().padStart(2,'0');
+  var s = Math.floor(seconds%60).toString().padStart(2,'0');
+  return m + ':' + s;
+}
+
+var userHasInteracted = false;
+var audioBannerTimer = null;
+var AUDIO_BANNER_HIDE_DELAY = 3000;
+var consecutiveErrorCount = 0;
+var MAX_CONSECUTIVE_ERRORS = 5;
+var ERROR_DELAY_MS = 2000;
+var errorOverlayVisible = false;
+
+function showErrorOverlay(message) {
+  if (errorOverlayVisible) return;
+  errorOverlayVisible = true;
+  var overlay = document.getElementById('playback-error-overlay');
+  if (!overlay) {
+    overlay = document.createElement('div');
+    overlay.id = 'playback-error-overlay';
+    overlay.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.9);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:9999;color:#fff;font-family:sans-serif;';
+    overlay.innerHTML = '<div style="text-align:center;max-width:80%;"><div style="font-size:48px;margin-bottom:20px;">&#9888;</div><div id="error-message" style="font-size:18px;margin-bottom:30px;color:#ff6b6b;"></div><div style="display:flex;gap:20px;justify-content:center;"><button id="error-skip-btn" style="padding:15px 30px;background:linear-gradient(135deg,#00f3ff,#39ff14);color:#000;font-size:16px;font-weight:bold;border:none;border-radius:8px;cursor:pointer;">Skip to Next</button><button id="error-retry-btn" style="padding:15px 30px;background:#333;color:#fff;font-size:16px;font-weight:bold;border:1px solid #555;border-radius:8px;cursor:pointer;">Retry Current</button></div></div>';
+    document.body.appendChild(overlay);
+    document.getElementById('error-skip-btn').addEventListener('click', function(){ hideErrorOverlay(); consecutiveErrorCount=0; playMovie((currentIndex+1)%playlist.length); });
+    document.getElementById('error-retry-btn').addEventListener('click', function(){ hideErrorOverlay(); consecutiveErrorCount=0; playMovie(currentIndex); });
+  }
+  document.getElementById('error-message').textContent = message || 'Multiple playback failures detected.';
+  overlay.style.display = 'flex';
+}
+
+function hideErrorOverlay() {
+  var overlay = document.getElementById('playback-error-overlay');
+  if (overlay) overlay.style.display = 'none';
+  errorOverlayVisible = false;
+}
+
+function handleMediaError(errorEvent) {
+  consecutiveErrorCount++;
+  if (consecutiveErrorCount >= MAX_CONSECUTIVE_ERRORS) { showErrorOverlay('Stopped after ' + MAX_CONSECUTIVE_ERRORS + ' consecutive playback failures.'); return; }
+  setTimeout(function(){ playMovie((currentIndex+1)%playlist.length); }, ERROR_DELAY_MS);
+}
+
+function resetErrorCount() { consecutiveErrorCount = 0; hideErrorOverlay(); }
+
+function initAudioContext(mediaElement) {
+  if (!mediaElement || !isAudioMode) return;
+  if (currentAudioElement === mediaElement && audioSourceConnected) return;
+  try {
+    if (!audioContext) audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    if (currentAudioSource && currentAudioElement !== mediaElement) { try { currentAudioSource.disconnect(); } catch(e){} }
+    if (!analyser) { analyser = audioContext.createAnalyser(); analyser.fftSize=256; analyser.smoothingTimeConstant=0.8; }
+    currentAudioSource = audioContext.createMediaElementSource(mediaElement);
+    currentAudioSource.connect(analyser);
+    analyser.connect(audioContext.destination);
+    dataArray = new Uint8Array(analyser.frequencyBinCount);
+    currentAudioElement = mediaElement;
+    audioSourceConnected = true;
+  } catch(e) { console.error('Audio context init failed:', e); }
+}
+
+function ensurePlaybackReady(mediaElement) {
+  if (!mediaElement) return;
+  if (mediaElement.readyState >= 3) { mediaElement.play().catch(function(e){ console.error('Play failed:',e); }); return; }
+  var handleCanPlay = function(){ mediaElement.removeEventListener('canplay',handleCanPlay); mediaElement.play().catch(function(e){ console.error('Play failed:',e); }); };
+  mediaElement.addEventListener('canplay', handleCanPlay, { once:true, passive:true });
+}
+
+function resumeAudioAndPlay() {
+  var activeEl = getActiveMediaElement();
+  if (audioContext && audioContext.state === 'suspended') { audioContext.resume().then(function(){ ensurePlaybackReady(activeEl); }); }
+  else { ensurePlaybackReady(activeEl); }
+}
+
+function showAudioPlayOverlay() {
+  var overlay = document.getElementById('audio-play-overlay');
+  if (!overlay) {
+    overlay = document.createElement('div');
+    overlay.id = 'audio-play-overlay';
+    overlay.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.8);display:flex;align-items:center;justify-content:center;z-index:9999;cursor:pointer;';
+    overlay.innerHTML = '<div style="padding:20px 40px;background:linear-gradient(135deg,#00f3ff,#39ff14);color:#000;font-size:24px;font-weight:bold;border-radius:10px;box-shadow:0 0 30px rgba(0,243,255,0.5);">&#9654; Click to Play Audio</div>';
+    overlay.addEventListener('click', function(){ userHasInteracted=true; overlay.style.display='none'; resumeAudioAndPlay(); });
+    document.body.appendChild(overlay);
+  }
+  overlay.style.display = 'flex';
+}
+
+function hideAudioPlayOverlay() { var o = document.getElementById('audio-play-overlay'); if(o) o.style.display='none'; }
+
+function initAudioBanner() {
+  document.addEventListener('mousemove', function(){ if(isAudioMode) showAudioBanner(); }, { passive:true });
+  document.addEventListener('touchstart', function(){ if(isAudioMode) showAudioBanner(); }, { passive:true });
+  var ab = document.getElementById('audio-banner');
+  if (!ab) return;
+  ab.addEventListener('mouseenter', function(){ if(isAudioMode){ clearTimeout(audioBannerTimer); ab.classList.add('visible'); } }, { passive:true });
+  ab.addEventListener('mouseleave', function(){ if(isAudioMode) audioBannerTimer=setTimeout(hideAudioBanner, AUDIO_BANNER_HIDE_DELAY); }, { passive:true });
+}
+
+function showAudioBanner() { var ab=document.getElementById('audio-banner'); if(!ab) return; ab.classList.add('visible'); clearTimeout(audioBannerTimer); audioBannerTimer=setTimeout(hideAudioBanner,AUDIO_BANNER_HIDE_DELAY); }
+function hideAudioBanner() { var ab=document.getElementById('audio-banner'); if(ab) ab.classList.remove('visible'); }
+
+function showNowPlayingDisplay(artist, title) {
+  var npA=document.getElementById('np-artist'), npT=document.getElementById('np-title'), npD=document.getElementById('now-playing-display');
+  if(npA) npA.textContent=artist||'Unknown Artist';
+  if(npT) npT.textContent=title||'Unknown Track';
+  if(npD) npD.classList.add('visible');
+}
+function hideNowPlayingDisplay() { var npD=document.getElementById('now-playing-display'); if(npD) npD.classList.remove('visible'); }
+
+function updateAudioBannerFrequency(bass, mid, high, peak, peakValue) {
+  var e = function(id){ return document.getElementById(id); };
+  if(e('ab-bass')) e('ab-bass').textContent=bass; if(e('ab-mid')) e('ab-mid').textContent=mid;
+  if(e('ab-high')) e('ab-high').textContent=high; if(e('ab-peak')) e('ab-peak').textContent=peak+' Hz';
+  if(e('ab-bass-bar')) e('ab-bass-bar').style.width=(bass/255*100)+'%'; if(e('ab-mid-bar')) e('ab-mid-bar').style.width=(mid/255*100)+'%';
+  if(e('ab-high-bar')) e('ab-high-bar').style.width=(high/255*100)+'%'; if(e('ab-peak-bar')) e('ab-peak-bar').style.width=(peakValue/255*100)+'%';
+}
+
+document.addEventListener('click', function(){ userHasInteracted=true; hideAudioPlayOverlay(); }, { once:true, passive:true });
+
+function drawVisualizer() {
+  if (!domResolved) resolveVisualizerDom();
+  if (!visCtx || !visCanvas) return;
+  var width = visCanvas.width, height = visCanvas.height;
+  if (width <= 0 || height <= 0) { visCanvas.width=window.innerWidth||1280; visCanvas.height=window.innerHeight||720; animationFrameId=requestAnimationFrame(drawVisualizer); return; }
+  var centerX=width/2, centerY=height*0.42;
+  var bassEnergy=0, midEnergy=0, highEnergy=0, binCount=128;
+  if (analyser && dataArray) {
+    analyser.getByteFrequencyData(dataArray); binCount=dataArray.length;
+    for (var i=0; i<binCount; i++) {
+      if (i<binCount*0.15) bassEnergy+=dataArray[i];
+      else if (i<binCount*0.5) midEnergy+=dataArray[i];
+      else highEnergy+=dataArray[i];
+    }
+    bassEnergy=bassEnergy/(binCount*0.15)/255; midEnergy=midEnergy/(binCount*0.35)/255; highEnergy=highEnergy/(binCount*0.5)/255;
+  }
+  var beatIntensity=Math.min((bassEnergy*0.6+midEnergy*0.3+highEnergy*0.1)*1.5,1);
+  var bgGrad=visCtx.createRadialGradient(centerX,height,0,centerX,height,height*1.2);
+  bgGrad.addColorStop(0,'#0d0015'); bgGrad.addColorStop(0.5,'#0a0020'); bgGrad.addColorStop(1,'#050010');
+  visCtx.fillStyle=bgGrad; visCtx.fillRect(0,0,width,height);
+  rotationAngle+=0.003;
+  var baseRadiusX=Math.min(width,height)*0.28, baseRadiusY=baseRadiusX*0.25, ringY=height*0.68;
+  for (var ring=6; ring>=0; ring--) {
+    var ringScale=1+ring*0.18, pulseScale=1+beatIntensity*0.15*(1-ring*0.08);
+    var radiusX=baseRadiusX*ringScale*pulseScale, radiusY=baseRadiusY*ringScale*pulseScale;
+    var hue=180+ring*25, alpha=0.7-ring*0.08, glowIntensity=15+beatIntensity*25;
+    visCtx.save(); visCtx.translate(centerX,ringY); visCtx.rotate(rotationAngle*(ring%2===0?1:-1)*0.3);
+    visCtx.shadowColor='hsl('+hue+',100%,60%)'; visCtx.shadowBlur=glowIntensity;
+    visCtx.strokeStyle='hsla('+hue+',100%,60%,'+alpha+')'; visCtx.lineWidth=2+beatIntensity*2;
+    visCtx.beginPath(); visCtx.ellipse(0,0,radiusX,radiusY,0,0,Math.PI*2); visCtx.stroke(); visCtx.restore();
+  }
+  var orbRadius=Math.min(width,height)*0.14, orbPulse=1+beatIntensity*0.08;
+  visCtx.save();
+  var orbGlow=visCtx.createRadialGradient(centerX,centerY,0,centerX,centerY,orbRadius*1.8*orbPulse);
+  orbGlow.addColorStop(0,'rgba(150,0,255,0.4)'); orbGlow.addColorStop(0.5,'rgba(100,0,200,0.2)'); orbGlow.addColorStop(1,'rgba(50,0,150,0)');
+  visCtx.fillStyle=orbGlow; visCtx.beginPath(); visCtx.arc(centerX,centerY,orbRadius*1.8*orbPulse,0,Math.PI*2); visCtx.fill(); visCtx.restore();
+  visCtx.save();
+  var orbGrad=visCtx.createRadialGradient(centerX-orbRadius*0.3,centerY-orbRadius*0.3,0,centerX,centerY,orbRadius*orbPulse);
+  orbGrad.addColorStop(0,'rgba(200,100,255,0.9)'); orbGrad.addColorStop(0.4,'rgba(150,50,200,0.8)'); orbGrad.addColorStop(0.8,'rgba(100,0,150,0.7)'); orbGrad.addColorStop(1,'rgba(50,0,100,0.6)');
+  visCtx.shadowColor='rgba(150,0,255,0.8)'; visCtx.shadowBlur=30+beatIntensity*20;
+  visCtx.fillStyle=orbGrad; visCtx.beginPath(); visCtx.arc(centerX,centerY,orbRadius*orbPulse,0,Math.PI*2); visCtx.fill();
+  visCtx.strokeStyle='rgba(200,150,255,0.6)'; visCtx.lineWidth=2; visCtx.stroke(); visCtx.restore();
+  visCtx.save(); visCtx.fillStyle='rgba(0,0,0,0.4)'; visCtx.font='bold '+(orbRadius*0.8)+'px Arial';
+  visCtx.textAlign='center'; visCtx.textBaseline='middle'; visCtx.fillText('\u266a',centerX,centerY); visCtx.restore();
+  var bassVal=Math.round(bassEnergy*255), midVal=Math.round(midEnergy*255), highVal=Math.round(highEnergy*255);
+  var peakIdx=0, peakVal=0;
+  if (dataArray) { for(var j=0;j<binCount;j++){if(dataArray[j]>peakVal){peakVal=dataArray[j];peakIdx=j;}}}
+  var peakFreq=Math.round(peakIdx*(audioContext?audioContext.sampleRate/2/binCount:22050/binCount));
+  updateAudioBannerFrequency(bassVal,midVal,highVal,peakFreq,peakVal);
+  animationFrameId=requestAnimationFrame(drawVisualizer);
+}
+
+function updateAudioMetadata(title) {
+  var ps=parseArtistAndSong(title);
+  if(audioArtistName) audioArtistName.textContent=ps.artist;
+  if(audioSongName) audioSongName.textContent=ps.song;
+}
+
+function updateAudioTimestamp() {
+  if(audioTimestamp && isAudioMode) { var ae=getActiveMediaElement(); audioTimestamp.textContent=formatAudioTime(ae.currentTime); }
+}
+
+function switchToAudioMode(title) {
+  if(!domResolved) resolveVisualizerDom();
+  isAudioMode=true;
+  if(visVideo){ visVideo.pause(); visVideo.style.display='none'; visVideo.style.visibility='hidden'; visVideo.style.zIndex='1'; }
+  if(visAudio){ visAudio.style.display='block'; visAudio.style.visibility='visible'; visAudio.style.zIndex='5'; }
+  if(visCanvas){ visCanvas.style.display='block'; visCanvas.style.zIndex='10'; visCanvas.width=visCanvas.offsetWidth||window.innerWidth||1280; visCanvas.height=visCanvas.offsetHeight||window.innerHeight||720; }
+  if(audioTitleOverlay) audioTitleOverlay.style.display='block';
+  initAudioContext(visAudio);
+  if(audioContext && audioContext.state==='suspended') audioContext.resume();
+  if(!animationFrameId) drawVisualizer();
+  updateAudioMetadata(title);
+  var ps=parseArtistAndSong(title); showNowPlayingDisplay(ps.artist,ps.song);
+  showAudioBanner();
+}
+
+function switchToVideoMode() {
+  if(!domResolved) resolveVisualizerDom();
+  isAudioMode=false;
+  if(visAudio){ visAudio.pause(); visAudio.style.display='none'; visAudio.style.visibility='hidden'; visAudio.style.zIndex='1'; }
+  if(visVideo){ visVideo.style.display='block'; visVideo.style.visibility='visible'; visVideo.style.zIndex='5'; }
+  if(visCanvas){ visCanvas.style.display='none'; visCanvas.style.zIndex='1'; }
+  if(audioTitleOverlay) audioTitleOverlay.style.display='none';
+  hideNowPlayingDisplay(); hideAudioBanner();
+  if(animationFrameId){ cancelAnimationFrame(animationFrameId); animationFrameId=null; }
+}
+
+function attachTimeupdateListeners() {
+  if(visVideo) visVideo.addEventListener('timeupdate', updateAudioTimestamp);
+  if(visAudio) visAudio.addEventListener('timeupdate', updateAudioTimestamp);
+}
+if(document.readyState==='loading'){ document.addEventListener('DOMContentLoaded', attachTimeupdateListeners); } else { attachTimeupdateListeners(); }
+
+// ==================== CURTAIN TRANSITIONS ====================
+var CURTAIN_ANIMATION_TIME = 800;
+var curtainOverlay = null, isCurtainTransitioning = false;
+function resolveCurtainDom() { if(!curtainOverlay) curtainOverlay=document.getElementById('curtain-overlay'); }
+function closeCurtain(onComplete) {
+  resolveCurtainDom();
+  if(!curtainOverlay||isCurtainTransitioning){ if(onComplete) onComplete(); return; }
+  isCurtainTransitioning=true; curtainOverlay.classList.add('closed');
+  setTimeout(function(){ isCurtainTransitioning=false; if(onComplete) onComplete(); }, CURTAIN_ANIMATION_TIME);
+}
+function openCurtain(onComplete) {
+  resolveCurtainDom();
+  if(!curtainOverlay||isCurtainTransitioning){ if(onComplete) onComplete(); return; }
+  isCurtainTransitioning=true; curtainOverlay.classList.remove('closed');
+  setTimeout(function(){ isCurtainTransitioning=false; if(onComplete) onComplete(); }, CURTAIN_ANIMATION_TIME);
+}
+function playCurtainTransition(onMidpoint, onComplete) {
+  closeCurtain(function(){ if(onMidpoint) onMidpoint(); setTimeout(function(){ openCurtain(onComplete); }, 200); });
+}
+
+// Stubs for subtitle / CC support
+function loadSubtitles(videoEl, movie) { /* subtitle support not available in exported player */ }
+
+// ==================== MAIN PLAYER ====================
+var playlist = [{"title":"The Crittendon Plan","url":"https://archive.org/download/hogans-heroes-s-01-e-01-the-informer_202509/Hogan%27s%20Heroes_S03E01_The%20Crittendon%20Plan.mp4","episode":"The Crittendon Plan","group":"General","duration":300,"tvg-logo":"https://archive.org/services/img/hogans-heroes-s-01-e-01-the-informer_202509"},{"title":"Some Of Their Planes Are Missing","url":"https://archive.org/download/hogans-heroes-s-01-e-01-the-informer_202509/Hogan%27s%20Heroes_S03E02_Some%20Of%20Their%20Planes%20Are%20Missing.mp4","episode":"Some Of Their Planes Are Missing","group":"General","duration":300,"tvg-logo":"https://archive.org/services/img/hogans-heroes-s-01-e-01-the-informer_202509"},{"title":"D Day At Stalag 13","url":"https://archive.org/download/hogans-heroes-s-01-e-01-the-informer_202509/Hogan%27s%20Heroes_S03E03_D%20Day%20At%20Stalag%2013.mp4","episode":"D Day At Stalag 13","group":"General","duration":300,"tvg-logo":"https://archive.org/services/img/hogans-heroes-s-01-e-01-the-informer_202509"},{"title":"Sgt Schultz Meets Mata Hari","url":"https://archive.org/download/hogans-heroes-s-01-e-01-the-informer_202509/Hogan%27s%20Heroes_S03E04_Sgt_%20Schultz%20Meets%20Mata%20Hari.mp4","episode":"Sgt Schultz Meets Mata Hari","group":"General","duration":300,"tvg-logo":"https://archive.org/services/img/hogans-heroes-s-01-e-01-the-informer_202509"},{"title":"A Funny Thing Happened On The Way To London","url":"https://archive.org/download/hogans-heroes-s-01-e-01-the-informer_202509/Hogan%27s%20Heroes_S03E05_A%20Funny%20Thing%20Happened%20On%20The%20Way%20To%20London.mp4","episode":"A Funny Thing Happened On The Way To London","group":"General","duration":300,"tvg-logo":"https://archive.org/services/img/hogans-heroes-s-01-e-01-the-informer_202509"},{"title":"Casanova Klink","url":"https://archive.org/download/hogans-heroes-s-01-e-01-the-informer_202509/Hogan%27s%20Heroes_S03E06_Casanova%20Klink.mp4","episode":"Casanova Klink","group":"General","duration":300,"tvg-logo":"https://archive.org/services/img/hogans-heroes-s-01-e-01-the-informer_202509"},{"title":"Nights In Shining Armor","url":"https://archive.org/download/hogans-heroes-s-01-e-01-the-informer_202509/Hogan%27s%20Heroes_S03E08_Nights%20In%20Shining%20Armor.mp4","episode":"Nights In Shining Armor","group":"General","duration":300,"tvg-logo":"https://archive.org/services/img/hogans-heroes-s-01-e-01-the-informer_202509"},{"title":"Hot Money","url":"https://archive.org/download/hogans-heroes-s-01-e-01-the-informer_202509/Hogan%27s%20Heroes_S03E09_Hot%20Money.mp4","episode":"Hot Money","group":"General","duration":300,"tvg-logo":"https://archive.org/services/img/hogans-heroes-s-01-e-01-the-informer_202509"},{"title":"Drums Along The Dusseldorf","url":"https://archive.org/download/hogans-heroes-s-01-e-01-the-informer_202509/Hogan%27s%20Heroes_S03E10_Drums%20Along%20The%20Dusseldorf.mp4","episode":"Drums Along The Dusseldorf","group":"General","duration":300,"tvg-logo":"https://archive.org/services/img/hogans-heroes-s-01-e-01-the-informer_202509"},{"title":"One In Every Crowd","url":"https://archive.org/download/hogans-heroes-s-01-e-01-the-informer_202509/Hogan%27s%20Heroes_S03E12_One%20In%20Every%20Crowd.mp4","episode":"One In Every Crowd","group":"General","duration":300,"tvg-logo":"https://archive.org/services/img/hogans-heroes-s-01-e-01-the-informer_202509"},{"title":"A Russian Is Coming","url":"https://archive.org/download/hogans-heroes-s-01-e-01-the-informer_202509/Hogan%27s%20Heroes_S03E13_A%20Russian%20Is%20Coming.mp4","episode":"A Russian Is Coming","group":"General","duration":300,"tvg-logo":"https://archive.org/services/img/hogans-heroes-s-01-e-01-the-informer_202509"},{"title":"Evenings Of Generals","url":"https://archive.org/download/hogans-heroes-s-01-e-01-the-informer_202509/Hogan%27s%20Heroes_S03E14_Evenings%20Of%20Generals.mp4","episode":"Evenings Of Generals","group":"General","duration":300,"tvg-logo":"https://archive.org/services/img/hogans-heroes-s-01-e-01-the-informer_202509"},{"title":"Everybody Loves A Snowman","url":"https://archive.org/download/hogans-heroes-s-01-e-01-the-informer_202509/Hogan%27s%20Heroes_S03E15_Everybody%20Loves%20A%20Snowman.mp4","episode":"Everybody Loves A Snowman","group":"General","duration":300,"tvg-logo":"https://archive.org/services/img/hogans-heroes-s-01-e-01-the-informer_202509"},{"title":"Carter Turns Traitor","url":"https://archive.org/download/hogans-heroes-s-01-e-01-the-informer_202509/Hogan%27s%20Heroes_S03E17_Carter%20Turns%20Traitor.mp4","episode":"Carter Turns Traitor","group":"General","duration":300,"tvg-logo":"https://archive.org/services/img/hogans-heroes-s-01-e-01-the-informer_202509"},{"title":"Two Nazis For The Price Of One","url":"https://archive.org/download/hogans-heroes-s-01-e-01-the-informer_202509/Hogan%27s%20Heroes_S03E18_Two%20Nazis%20For%20The%20Price%20Of%20One.mp4","episode":"Two Nazis For The Price Of One","group":"General","duration":300,"tvg-logo":"https://archive.org/services/img/hogans-heroes-s-01-e-01-the-informer_202509"},{"title":"Is There A Doctor In The House","url":"https://archive.org/download/hogans-heroes-s-01-e-01-the-informer_202509/Hogan%27s%20Heroes_S03E19_Is%20There%20A%20Doctor%20In%20The%20House.mp4","episode":"Is There A Doctor In The House","group":"General","duration":300,"tvg-logo":"https://archive.org/services/img/hogans-heroes-s-01-e-01-the-informer_202509"},{"title":"Hogan Go Home","url":"https://archive.org/download/hogans-heroes-s-01-e-01-the-informer_202509/Hogan%27s%20Heroes_S03E20_Hogan%20Go%20Home.mp4","episode":"Hogan Go Home","group":"General","duration":300,"tvg-logo":"https://archive.org/services/img/hogans-heroes-s-01-e-01-the-informer_202509"},{"title":"Sticky Wicket Newkirk","url":"https://archive.org/download/hogans-heroes-s-01-e-01-the-informer_202509/Hogan%27s%20Heroes_S03E21_Sticky%20Wicket%20Newkirk.mp4","episode":"Sticky Wicket Newkirk","group":"General","duration":300,"tvg-logo":"https://archive.org/services/img/hogans-heroes-s-01-e-01-the-informer_202509"},{"title":"War Takes A Holiday","url":"https://archive.org/download/hogans-heroes-s-01-e-01-the-informer_202509/Hogan%27s%20Heroes_S03E22_War%20Takes%20A%20Holiday.mp4","episode":"War Takes A Holiday","group":"General","duration":300,"tvg-logo":"https://archive.org/services/img/hogans-heroes-s-01-e-01-the-informer_202509"},{"title":"Duel Of Honor","url":"https://archive.org/download/hogans-heroes-s-01-e-01-the-informer_202509/Hogan%27s%20Heroes_S03E23_Duel%20Of%20Honor.mp4","episode":"Duel Of Honor","group":"General","duration":300,"tvg-logo":"https://archive.org/services/img/hogans-heroes-s-01-e-01-the-informer_202509"},{"title":"Axis Annie","url":"https://archive.org/download/hogans-heroes-s-01-e-01-the-informer_202509/Hogan%27s%20Heroes_S03E24_Axis%20Annie.mp4","episode":"Axis Annie","group":"General","duration":300,"tvg-logo":"https://archive.org/services/img/hogans-heroes-s-01-e-01-the-informer_202509"},{"title":"What Time Does The Balloon Go Up","url":"https://archive.org/download/hogans-heroes-s-01-e-01-the-informer_202509/Hogan%27s%20Heroes_S03E25_What%20Time%20Does%20The%20Balloon%20Go%20Up.mp4","episode":"What Time Does The Balloon Go Up","group":"General","duration":300,"tvg-logo":"https://archive.org/services/img/hogans-heroes-s-01-e-01-the-informer_202509"},{"title":"Le Beau And The Little Old Lady","url":"https://archive.org/download/hogans-heroes-s-01-e-01-the-informer_202509/Hogan%27s%20Heroes_S03E26_Le%20Beau%20And%20The%20Little%20Old%20Lady.mp4","episode":"Le Beau And The Little Old Lady","group":"General","duration":300,"tvg-logo":"https://archive.org/services/img/hogans-heroes-s-01-e-01-the-informer_202509"},{"title":"How To Escape From A Prison Without Really Leaving","url":"https://archive.org/download/hogans-heroes-s-01-e-01-the-informer_202509/Hogan%27s%20Heroes_S03E27_How%20To%20Escape%20From%20A%20Prison%20Without%20Really%20Leaving.mp4","episode":"How To Escape From A Prison Without Really Leaving","group":"General","duration":300,"tvg-logo":"https://archive.org/services/img/hogans-heroes-s-01-e-01-the-informer_202509"},{"title":"The Collector General","url":"https://archive.org/download/hogans-heroes-s-01-e-01-the-informer_202509/Hogan%27s%20Heroes_S03E28_The%20Collector%20General.mp4","episode":"The Collector General","group":"General","duration":300,"tvg-logo":"https://archive.org/services/img/hogans-heroes-s-01-e-01-the-informer_202509"},{"title":"The Ultimate Weapon","url":"https://archive.org/download/hogans-heroes-s-01-e-01-the-informer_202509/Hogan%27s%20Heroes_S03E29_The%20Ultimate%20Weapon.mp4","episode":"The Ultimate Weapon","group":"General","duration":300,"tvg-logo":"https://archive.org/services/img/hogans-heroes-s-01-e-01-the-informer_202509"},{"title":"Monkey Business","url":"https://archive.org/download/hogans-heroes-s-01-e-01-the-informer_202509/Hogan%27s%20Heroes_S03E30_Monkey%20Business.mp4","episode":"Monkey Business","group":"General","duration":300,"tvg-logo":"https://archive.org/services/img/hogans-heroes-s-01-e-01-the-informer_202509"},{"title":"Clearance Sale At The Black Market","url":"https://archive.org/download/hogans-heroes-s-01-e-01-the-informer_202509/Hogan%27s%20Heroes_S04E01_Clearance%20Sale%20At%20The%20Black%20Market.mp4","episode":"Clearance Sale At The Black Market","group":"General","duration":300,"tvg-logo":"https://archive.org/services/img/hogans-heroes-s-01-e-01-the-informer_202509"},{"title":"Klink VS The Gonculator","url":"https://archive.org/download/hogans-heroes-s-01-e-01-the-informer_202509/Hogan%27s%20Heroes_S04E02_Klink%20VS%20The%20Gonculator.mp4","episode":"Klink VS The Gonculator","group":"General","duration":300,"tvg-logo":"https://archive.org/services/img/hogans-heroes-s-01-e-01-the-informer_202509"},{"title":"Hogan's Trucking Service","url":"https://archive.org/download/hogans-heroes-s-01-e-01-the-informer_202509/Hogan%27s%20Heroes_S04E04_Hogan%27s%20Trucking%20Service.mp4","episode":"Hogan's Trucking Service","group":"General","duration":300,"tvg-logo":"https://archive.org/services/img/hogans-heroes-s-01-e-01-the-informer_202509"},{"title":"To The Gestapo With Love","url":"https://archive.org/download/hogans-heroes-s-01-e-01-the-informer_202509/Hogan%27s%20Heroes_S04E05_To%20The%20Gestapo%20With%20Love.mp4","episode":"To The Gestapo With Love","group":"General","duration":300,"tvg-logo":"https://archive.org/services/img/hogans-heroes-s-01-e-01-the-informer_202509"},{"title":"A Man's Best Friend Is Not His Dog","url":"https://archive.org/download/hogans-heroes-s-01-e-01-the-informer_202509/Hogan%27s%20Heroes_S04E06_A%20Man%27s%20Best%20Friend%20Is%20Not%20His%20Dog.mp4","episode":"A Man's Best Friend Is Not His Dog","group":"General","duration":300,"tvg-logo":"https://archive.org/services/img/hogans-heroes-s-01-e-01-the-informer_202509"},{"title":"Never Play Cards With Strangers","url":"https://archive.org/download/hogans-heroes-s-01-e-01-the-informer_202509/Hogan%27s%20Heroes_S04E07_Never%20Play%20Cards%20With%20Strangers.mp4","episode":"Never Play Cards With Strangers","group":"General","duration":300,"tvg-logo":"https://archive.org/services/img/hogans-heroes-s-01-e-01-the-informer_202509"},{"title":"Color The Luftwaffe Red","url":"https://archive.org/download/hogans-heroes-s-01-e-01-the-informer_202509/Hogan%27s%20Heroes_S04E08_Color%20The%20Luftwaffe%20Red.mp4","episode":"Color The Luftwaffe Red","group":"General","duration":300,"tvg-logo":"https://archive.org/services/img/hogans-heroes-s-01-e-01-the-informer_202509"},{"title":"Guess Who Came To Dinner","url":"https://archive.org/download/hogans-heroes-s-01-e-01-the-informer_202509/Hogan%27s%20Heroes_S04E09_Guess%20Who%20Came%20To%20Dinner.mp4","episode":"Guess Who Came To Dinner","group":"General","duration":300,"tvg-logo":"https://archive.org/services/img/hogans-heroes-s-01-e-01-the-informer_202509"},{"title":"No Names Please","url":"https://archive.org/download/hogans-heroes-s-01-e-01-the-informer_202509/Hogan%27s%20Heroes_S04E10_No%20Names%20Please.mp4","episode":"No Names Please","group":"General","duration":300,"tvg-logo":"https://archive.org/services/img/hogans-heroes-s-01-e-01-the-informer_202509"},{"title":"Bad Day In Berlin","url":"https://archive.org/download/hogans-heroes-s-01-e-01-the-informer_202509/Hogan%27s%20Heroes_S04E11_Bad%20Day%20In%20Berlin.mp4","episode":"Bad Day In Berlin","group":"General","duration":300,"tvg-logo":"https://archive.org/services/img/hogans-heroes-s-01-e-01-the-informer_202509"},{"title":"Will The Blue Baron Strike Again","url":"https://archive.org/download/hogans-heroes-s-01-e-01-the-informer_202509/Hogan%27s%20Heroes_S04E12_Will%20The%20Blue%20Baron%20Strike%20Again.mp4","episode":"Will The Blue Baron Strike Again","group":"General","duration":300,"tvg-logo":"https://archive.org/services/img/hogans-heroes-s-01-e-01-the-informer_202509"},{"title":"Will The Real Col Klink Stand Against The Wall","url":"https://archive.org/download/hogans-heroes-s-01-e-01-the-informer_202509/Hogan%27s%20Heroes_S04E13_Will%20The%20Real%20Col_%20Klink%20Stand%20Against%20The%20Wall.mp4","episode":"Will The Real Col Klink Stand Against The Wall","group":"General","duration":300,"tvg-logo":"https://archive.org/services/img/hogans-heroes-s-01-e-01-the-informer_202509"},{"title":"The Man In A Box","url":"https://archive.org/download/hogans-heroes-s-01-e-01-the-informer_202509/Hogan%27s%20Heroes_S04E14_The%20Man%20In%20A%20Box.mp4","episode":"The Man In A Box","group":"General","duration":300,"tvg-logo":"https://archive.org/services/img/hogans-heroes-s-01-e-01-the-informer_202509"},{"title":"The Missing Klink","url":"https://archive.org/download/hogans-heroes-s-01-e-01-the-informer_202509/Hogan%27s%20Heroes_S04E15_The%20Missing%20Klink.mp4","episode":"The Missing Klink","group":"General","duration":300,"tvg-logo":"https://archive.org/services/img/hogans-heroes-s-01-e-01-the-informer_202509"},{"title":"Who Stole My Copy Of Mein Kampf","url":"https://archive.org/download/hogans-heroes-s-01-e-01-the-informer_202509/Hogan%27s%20Heroes_S04E16_Who%20Stole%20My%20Copy%20Of%20Mein%20Kampf.mp4","episode":"Who Stole My Copy Of Mein Kampf","group":"General","duration":300,"tvg-logo":"https://archive.org/services/img/hogans-heroes-s-01-e-01-the-informer_202509"},{"title":"Operation Hannibal","url":"https://archive.org/download/hogans-heroes-s-01-e-01-the-informer_202509/Hogan%27s%20Heroes_S04E17_Operation%20Hannibal.mp4","episode":"Operation Hannibal","group":"General","duration":300,"tvg-logo":"https://archive.org/services/img/hogans-heroes-s-01-e-01-the-informer_202509"},{"title":"My Favorite Prisoner","url":"https://archive.org/download/hogans-heroes-s-01-e-01-the-informer_202509/Hogan%27s%20Heroes_S04E18_My%20Favorite%20Prisoner.mp4","episode":"My Favorite Prisoner","group":"General","duration":300,"tvg-logo":"https://archive.org/services/img/hogans-heroes-s-01-e-01-the-informer_202509"},{"title":"Watch The Trains Go By","url":"https://archive.org/download/hogans-heroes-s-01-e-01-the-informer_202509/Hogan%27s%20Heroes_S04E19_Watch%20The%20Trains%20Go%20By.mp4","episode":"Watch The Trains Go By","group":"General","duration":300,"tvg-logo":"https://archive.org/services/img/hogans-heroes-s-01-e-01-the-informer_202509"},{"title":"Klink's Old Flame","url":"https://archive.org/download/hogans-heroes-s-01-e-01-the-informer_202509/Hogan%27s%20Heroes_S04E20_Klink%27s%20Old%20Flame.mp4","episode":"Klink's Old Flame","group":"General","duration":300,"tvg-logo":"https://archive.org/services/img/hogans-heroes-s-01-e-01-the-informer_202509"},{"title":"Up In Klink's Room","url":"https://archive.org/download/hogans-heroes-s-01-e-01-the-informer_202509/Hogan%27s%20Heroes_S04E21_Up%20In%20Klink%27s%20Room.mp4","episode":"Up In Klink's Room","group":"General","duration":300,"tvg-logo":"https://archive.org/services/img/hogans-heroes-s-01-e-01-the-informer_202509"},{"title":"The Witness","url":"https://archive.org/download/hogans-heroes-s-01-e-01-the-informer_202509/Hogan%27s%20Heroes_S04E22_The%20Witness.mp4","episode":"The Witness","group":"General","duration":300,"tvg-logo":"https://archive.org/services/img/hogans-heroes-s-01-e-01-the-informer_202509"},{"title":"The Purchasing Plan","url":"https://archive.org/download/hogans-heroes-s-01-e-01-the-informer_202509/Hogan%27s%20Heroes_S04E23_The%20Purchasing%20Plan.mp4","episode":"The Purchasing Plan","group":"General","duration":300,"tvg-logo":"https://archive.org/services/img/hogans-heroes-s-01-e-01-the-informer_202509"},{"title":"The Big Dish","url":"https://archive.org/download/hogans-heroes-s-01-e-01-the-informer_202509/Hogan%27s%20Heroes_S04E24_The%20Big%20Dish.mp4","episode":"The Big Dish","group":"General","duration":300,"tvg-logo":"https://archive.org/services/img/hogans-heroes-s-01-e-01-the-informer_202509"},{"title":"The Return Of Major Bonacelli","url":"https://archive.org/download/hogans-heroes-s-01-e-01-the-informer_202509/Hogan%27s%20Heroes_S04E25_The%20Return%20Of%20Major%20Bonacelli.mp4","episode":"The Return Of Major Bonacelli","group":"General","duration":300,"tvg-logo":"https://archive.org/services/img/hogans-heroes-s-01-e-01-the-informer_202509"},{"title":"Happy Birthday Dear Hogan","url":"https://archive.org/download/hogans-heroes-s-01-e-01-the-informer_202509/Hogan%27s%20Heroes_S04E26_Happy%20Birthday%20Dear%20Hogan.mp4","episode":"Happy Birthday Dear Hogan","group":"General","duration":300,"tvg-logo":"https://archive.org/services/img/hogans-heroes-s-01-e-01-the-informer_202509"},{"title":"The Well","url":"https://archive.org/download/hogans-heroes-s-01-e-01-the-informer_202509/Hogan%27s%20Heroes_S05E02_The%20Well.mp4","episode":"The Well","group":"General","duration":300,"tvg-logo":"https://archive.org/services/img/hogans-heroes-s-01-e-01-the-informer_202509"},{"title":"The Klink Commandos","url":"https://archive.org/download/hogans-heroes-s-01-e-01-the-informer_202509/Hogan%27s%20Heroes_S05E03_The%20Klink%20Commandos.mp4","episode":"The Klink Commandos","group":"General","duration":300,"tvg-logo":"https://archive.org/services/img/hogans-heroes-s-01-e-01-the-informer_202509"},{"title":"The Gasoline War","url":"https://archive.org/download/hogans-heroes-s-01-e-01-the-informer_202509/Hogan%27s%20Heroes_S05E04_The%20Gasoline%20War.mp4","episode":"The Gasoline War","group":"General","duration":300,"tvg-logo":"https://archive.org/services/img/hogans-heroes-s-01-e-01-the-informer_202509"},{"title":"Unfair Exchange","url":"https://archive.org/download/hogans-heroes-s-01-e-01-the-informer_202509/Hogan%27s%20Heroes_S05E05_Unfair%20Exchange.mp4","episode":"Unfair Exchange","group":"General","duration":300,"tvg-logo":"https://archive.org/services/img/hogans-heroes-s-01-e-01-the-informer_202509"},{"title":"The Kommandant Dies At Dawn","url":"https://archive.org/download/hogans-heroes-s-01-e-01-the-informer_202509/Hogan%27s%20Heroes_S05E06_The%20Kommandant%20Dies%20At%20Dawn.mp4","episode":"The Kommandant Dies At Dawn","group":"General","duration":300,"tvg-logo":"https://archive.org/services/img/hogans-heroes-s-01-e-01-the-informer_202509"},{"title":"Bombsight","url":"https://archive.org/download/hogans-heroes-s-01-e-01-the-informer_202509/Hogan%27s%20Heroes_S05E07_Bombsight.mp4","episode":"Bombsight","group":"General","duration":300,"tvg-logo":"https://archive.org/services/img/hogans-heroes-s-01-e-01-the-informer_202509"},{"title":"The Big Picture","url":"https://archive.org/download/hogans-heroes-s-01-e-01-the-informer_202509/Hogan%27s%20Heroes_S05E08_The%20Big%20Picture.mp4","episode":"The Big Picture","group":"General","duration":300,"tvg-logo":"https://archive.org/services/img/hogans-heroes-s-01-e-01-the-informer_202509"},{"title":"The Big Gamble","url":"https://archive.org/download/hogans-heroes-s-01-e-01-the-informer_202509/Hogan%27s%20Heroes_S05E09_The%20Big%20Gamble.mp4","episode":"The Big Gamble","group":"General","duration":300,"tvg-logo":"https://archive.org/services/img/hogans-heroes-s-01-e-01-the-informer_202509"},{"title":"The Defector","url":"https://archive.org/download/hogans-heroes-s-01-e-01-the-informer_202509/Hogan%27s%20Heroes_S05E10_The%20Defector.mp4","episode":"The Defector","group":"General","duration":300,"tvg-logo":"https://archive.org/services/img/hogans-heroes-s-01-e-01-the-informer_202509"},{"title":"The Empty Parachute","url":"https://archive.org/download/hogans-heroes-s-01-e-01-the-informer_202509/Hogan%27s%20Heroes_S05E11_The%20Empty%20Parachute.mp4","episode":"The Empty Parachute","group":"General","duration":300,"tvg-logo":"https://archive.org/services/img/hogans-heroes-s-01-e-01-the-informer_202509"},{"title":"The Antique","url":"https://archive.org/download/hogans-heroes-s-01-e-01-the-informer_202509/Hogan%27s%20Heroes_S05E12_The%20Antique.mp4","episode":"The Antique","group":"General","duration":300,"tvg-logo":"https://archive.org/services/img/hogans-heroes-s-01-e-01-the-informer_202509"},{"title":"Is There A Traitor In The House","url":"https://archive.org/download/hogans-heroes-s-01-e-01-the-informer_202509/Hogan%27s%20Heroes_S05E13_Is%20There%20A%20Traitor%20In%20The%20House_.mp4","episode":"Is There A Traitor In The House","group":"General","duration":300,"tvg-logo":"https://archive.org/services/img/hogans-heroes-s-01-e-01-the-informer_202509"},{"title":"Gowns By Yvett","url":"https://archive.org/download/hogans-heroes-s-01-e-01-the-informer_202509/Hogan%27s%20Heroes_S05E16_Gowns%20By%20Yvett.mp4","episode":"Gowns By Yvett","group":"General","duration":300,"tvg-logo":"https://archive.org/services/img/hogans-heroes-s-01-e-01-the-informer_202509"},{"title":"Get Fit Or Go Fight","url":"https://archive.org/download/hogans-heroes-s-01-e-01-the-informer_202509/Hogan%27s%20Heroes_S05E17_Get%20Fit%20Or%20Go%20Fight.mp4","episode":"Get Fit Or Go Fight","group":"General","duration":300,"tvg-logo":"https://archive.org/services/img/hogans-heroes-s-01-e-01-the-informer_202509"},{"title":"Fat Herman, Go Home","url":"https://archive.org/download/hogans-heroes-s-01-e-01-the-informer_202509/Hogan%27s%20Heroes_S05E18_Fat%20Herman%2C%20Go%20Home.mp4","episode":"Fat Herman, Go Home","group":"General","duration":300,"tvg-logo":"https://archive.org/services/img/hogans-heroes-s-01-e-01-the-informer_202509"},{"title":"The Softer They Fall","url":"https://archive.org/download/hogans-heroes-s-01-e-01-the-informer_202509/Hogan%27s%20Heroes_S05E19_The%20Softer%20They%20Fall.mp4","episode":"The Softer They Fall","group":"General","duration":300,"tvg-logo":"https://archive.org/services/img/hogans-heroes-s-01-e-01-the-informer_202509"},{"title":"One Army At A Time","url":"https://archive.org/download/hogans-heroes-s-01-e-01-the-informer_202509/Hogan%27s%20Heroes_S05E20_One%20Army%20At%20A%20Time.mp4","episode":"One Army At A Time","group":"General","duration":300,"tvg-logo":"https://archive.org/services/img/hogans-heroes-s-01-e-01-the-informer_202509"},{"title":"Standing Room Only","url":"https://archive.org/download/hogans-heroes-s-01-e-01-the-informer_202509/Hogan%27s%20Heroes_S05E21_Standing%20Room%20Only.mp4","episode":"Standing Room Only","group":"General","duration":300,"tvg-logo":"https://archive.org/services/img/hogans-heroes-s-01-e-01-the-informer_202509"},{"title":"The Sergeant's Analyst","url":"https://archive.org/download/hogans-heroes-s-01-e-01-the-informer_202509/Hogan%27s%20Heroes_S05E23_The%20Sergeant%27s%20Analyst.mp4","episode":"The Sergeant's Analyst","group":"General","duration":300,"tvg-logo":"https://archive.org/services/img/hogans-heroes-s-01-e-01-the-informer_202509"},{"title":"Crittendon's Commandos","url":"https://archive.org/download/hogans-heroes-s-01-e-01-the-informer_202509/Hogan%27s%20Heroes_S05E25_Crittendon%27s%20Commandos.mp4","episode":"Crittendon's Commandos","group":"General","duration":300,"tvg-logo":"https://archive.org/services/img/hogans-heroes-s-01-e-01-the-informer_202509"},{"title":"Klink's Escape","url":"https://archive.org/download/hogans-heroes-s-01-e-01-the-informer_202509/Hogan%27s%20Heroes_S05E26_Klink%27s%20Escape.mp4","episode":"Klink's Escape","group":"General","duration":300,"tvg-logo":"https://archive.org/services/img/hogans-heroes-s-01-e-01-the-informer_202509"},{"title":"Cuisine A La Stalag 13","url":"https://archive.org/download/hogans-heroes-s-01-e-01-the-informer_202509/Hogan%27s%20Heroes_S06E01_Cuisine%20A%20La%20Stalag%2013.mp4","episode":"Cuisine A La Stalag 13","group":"General","duration":300,"tvg-logo":"https://archive.org/services/img/hogans-heroes-s-01-e-01-the-informer_202509"},{"title":"The Experts","url":"https://archive.org/download/hogans-heroes-s-01-e-01-the-informer_202509/Hogan%27s%20Heroes_S06E02_The%20Experts.mp4","episode":"The Experts","group":"General","duration":300,"tvg-logo":"https://archive.org/services/img/hogans-heroes-s-01-e-01-the-informer_202509"},{"title":"Klink'S Masterpiece","url":"https://archive.org/download/hogans-heroes-s-01-e-01-the-informer_202509/Hogan%27s%20Heroes_S06E03_Klink%27S%20Masterpiece.mp4","episode":"Klink'S Masterpiece","group":"General","duration":300,"tvg-logo":"https://archive.org/services/img/hogans-heroes-s-01-e-01-the-informer_202509"},{"title":"Lady Chitterly'S Lover (Part 1)","url":"https://archive.org/download/hogans-heroes-s-01-e-01-the-informer_202509/Hogan%27s%20Heroes_S06E04_Lady%20Chitterly%27S%20Lover%20%28Part%201%29.mp4","episode":"Lady Chitterly'S Lover (Part 1)","group":"General","duration":300,"tvg-logo":"https://archive.org/services/img/hogans-heroes-s-01-e-01-the-informer_202509"},{"title":"Lady Chitterly'S Lover (Part 2)","url":"https://archive.org/download/hogans-heroes-s-01-e-01-the-informer_202509/Hogan%27s%20Heroes_S06E05_Lady%20Chitterly%27S%20Lover%20%28Part%202%29.mp4","episode":"Lady Chitterly'S Lover (Part 2)","group":"General","duration":300,"tvg-logo":"https://archive.org/services/img/hogans-heroes-s-01-e-01-the-informer_202509"},{"title":"The Gestapo Takeover","url":"https://archive.org/download/hogans-heroes-s-01-e-01-the-informer_202509/Hogan%27s%20Heroes_S06E06_The%20Gestapo%20Takeover.mp4","episode":"The Gestapo Takeover","group":"General","duration":300,"tvg-logo":"https://archive.org/services/img/hogans-heroes-s-01-e-01-the-informer_202509"},{"title":"Commandant Schultz","url":"https://archive.org/download/hogans-heroes-s-01-e-01-the-informer_202509/Hogan%27s%20Heroes_S06E07_Commandant%20Schultz.mp4","episode":"Commandant Schultz","group":"General","duration":300,"tvg-logo":"https://archive.org/services/img/hogans-heroes-s-01-e-01-the-informer_202509"},{"title":"Eight O'Clock And All Is Well","url":"https://archive.org/download/hogans-heroes-s-01-e-01-the-informer_202509/Hogan%27s%20Heroes_S06E08_Eight%20O%27Clock%20And%20All%20Is%20Well.mp4","episode":"Eight O'Clock And All Is Well","group":"General","duration":300,"tvg-logo":"https://archive.org/services/img/hogans-heroes-s-01-e-01-the-informer_202509"},{"title":"It'S Dynamite","url":"https://archive.org/download/hogans-heroes-s-01-e-01-the-informer_202509/Hogan%27s%20Heroes_S06E10_It%27S%20Dynamite.mp4","episode":"It'S Dynamite","group":"General","duration":300,"tvg-logo":"https://archive.org/services/img/hogans-heroes-s-01-e-01-the-informer_202509"},{"title":"Operation Tiger","url":"https://archive.org/download/hogans-heroes-s-01-e-01-the-informer_202509/Hogan%27s%20Heroes_S06E11_Operation%20Tiger.mp4","episode":"Operation Tiger","group":"General","duration":300,"tvg-logo":"https://archive.org/services/img/hogans-heroes-s-01-e-01-the-informer_202509"},{"title":"The Big Broadcast","url":"https://archive.org/download/hogans-heroes-s-01-e-01-the-informer_202509/Hogan%27s%20Heroes_S06E12_The%20Big%20Broadcast.mp4","episode":"The Big Broadcast","group":"General","duration":300,"tvg-logo":"https://archive.org/services/img/hogans-heroes-s-01-e-01-the-informer_202509"},{"title":"The Gypsy","url":"https://archive.org/download/hogans-heroes-s-01-e-01-the-informer_202509/Hogan%27s%20Heroes_S06E13_The%20Gypsy.mp4","episode":"The Gypsy","group":"General","duration":300,"tvg-logo":"https://archive.org/services/img/hogans-heroes-s-01-e-01-the-informer_202509"},{"title":"The Dropouts","url":"https://archive.org/download/hogans-heroes-s-01-e-01-the-informer_202509/Hogan%27s%20Heroes_S06E14_The%20Dropouts.mp4","episode":"The Dropouts","group":"General","duration":300,"tvg-logo":"https://archive.org/services/img/hogans-heroes-s-01-e-01-the-informer_202509"},{"title":"Easy Come, Easy Go","url":"https://archive.org/download/hogans-heroes-s-01-e-01-the-informer_202509/Hogan%27s%20Heroes_S06E15_Easy%20Come%2C%20Easy%20Go.mp4","episode":"Easy Come, Easy Go","group":"General","duration":300,"tvg-logo":"https://archive.org/services/img/hogans-heroes-s-01-e-01-the-informer_202509"},{"title":"The Meister Spy","url":"https://archive.org/download/hogans-heroes-s-01-e-01-the-informer_202509/Hogan%27s%20Heroes_S06E16_The%20Meister%20Spy.mp4","episode":"The Meister Spy","group":"General","duration":300,"tvg-logo":"https://archive.org/services/img/hogans-heroes-s-01-e-01-the-informer_202509"},{"title":"That'S No Lady, That'S My Spy","url":"https://archive.org/download/hogans-heroes-s-01-e-01-the-informer_202509/Hogan%27s%20Heroes_S06E17_That%27S%20No%20Lady%2C%20That%27S%20My%20Spy.mp4","episode":"That'S No Lady, That'S My Spy","group":"General","duration":300,"tvg-logo":"https://archive.org/services/img/hogans-heroes-s-01-e-01-the-informer_202509"},{"title":"To Russia Without Love","url":"https://archive.org/download/hogans-heroes-s-01-e-01-the-informer_202509/Hogan%27s%20Heroes_S06E18_To%20Russia%20Without%20Love.mp4","episode":"To Russia Without Love","group":"General","duration":300,"tvg-logo":"https://archive.org/services/img/hogans-heroes-s-01-e-01-the-informer_202509"},{"title":"Klink For The Defense","url":"https://archive.org/download/hogans-heroes-s-01-e-01-the-informer_202509/Hogan%27s%20Heroes_S06E19_Klink%20For%20The%20Defense.mp4","episode":"Klink For The Defense","group":"General","duration":300,"tvg-logo":"https://archive.org/services/img/hogans-heroes-s-01-e-01-the-informer_202509"},{"title":"The Kamikazes Are Coming","url":"https://archive.org/download/hogans-heroes-s-01-e-01-the-informer_202509/Hogan%27s%20Heroes_S06E20_The%20Kamikazes%20Are%20Coming.mp4","episode":"The Kamikazes Are Coming","group":"General","duration":300,"tvg-logo":"https://archive.org/services/img/hogans-heroes-s-01-e-01-the-informer_202509"},{"title":"Commandant Gertrude","url":"https://archive.org/download/hogans-heroes-s-01-e-01-the-informer_202509/Hogan%27s%20Heroes_S06E21_Commandant%20Gertrude.mp4","episode":"Commandant Gertrude","group":"General","duration":300,"tvg-logo":"https://archive.org/services/img/hogans-heroes-s-01-e-01-the-informer_202509"},{"title":"Hogan'S Double Life","url":"https://archive.org/download/hogans-heroes-s-01-e-01-the-informer_202509/Hogan%27s%20Heroes_S06E23_Hogan%27S%20Double%20Life.mp4","episode":"Hogan'S Double Life","group":"General","duration":300,"tvg-logo":"https://archive.org/services/img/hogans-heroes-s-01-e-01-the-informer_202509"},{"title":"Rockets Or Romance","url":"https://archive.org/download/hogans-heroes-s-01-e-01-the-informer_202509/Hogan%27s%20Heroes_S06E24_Rockets%20Or%20Romance.mp4","episode":"Rockets Or Romance","group":"General","duration":300,"tvg-logo":"https://archive.org/services/img/hogans-heroes-s-01-e-01-the-informer_202509"},{"title":"2026-Jun-01, Monday · Alex Jones Show · Hour 1","url":"https://ajn.archives.pub/hourly-m4v/20260601_Mon_Alex-Hr1.m4v","episode":"2026-Jun-01, Monday · Alex Jones Show · Hour 1","group":"General","duration":3590,"tvg-logo":""},{"title":"2026-Jun-01, Monday · Alex Jones Show · Hour 2","url":"https://ajn.archives.pub/hourly-m4v/20260601_Mon_Alex-Hr2.m4v","episode":"2026-Jun-01, Monday · Alex Jones Show · Hour 2","group":"General","duration":3590,"tvg-logo":""},{"title":"2026-Jun-01, Monday · Alex Jones Show · Hour 3","url":"https://ajn.archives.pub/hourly-m4v/20260601_Mon_Alex-Hr3.m4v","episode":"2026-Jun-01, Monday · Alex Jones Show · Hour 3","group":"General","duration":3590,"tvg-logo":""},{"title":"2026-Jun-01, Monday · Alex Jones Show · Hour 4","url":"https://ajn.archives.pub/hourly-m4v/20260601_Mon_Alex-Hr4.m4v","episode":"2026-Jun-01, Monday · Alex Jones Show · Hour 4","group":"General","duration":3590,"tvg-logo":""},{"title":"2026-Jun-01, Monday · War Room · Hour 1","url":"https://ajn.archives.pub/hourly-m4v/20260601_Mon_WarRoom-Hr1.m4v","episode":"2026-Jun-01, Monday · War Room · Hour 1","group":"General","duration":3590,"tvg-logo":""},{"title":"2026-Jun-01, Monday · War Room · Hour 2","url":"https://ajn.archives.pub/hourly-m4v/20260601_Mon_WarRoom-Hr2.m4v","episode":"2026-Jun-01, Monday · War Room · Hour 2","group":"General","duration":3590,"tvg-logo":""},{"title":"2026-Jun-01, Monday · War Room · Hour 3","url":"https://ajn.archives.pub/hourly-m4v/20260601_Mon_WarRoom-Hr3.m4v","episode":"2026-Jun-01, Monday · War Room · Hour 3","group":"General","duration":3590,"tvg-logo":""},{"title":"2026-Jun-02, Tuesday · Alex Jones Show · Hour 1","url":"https://ajn.archives.pub/hourly-m4v/20260602_Tue_Alex-Hr1.m4v","episode":"2026-Jun-02, Tuesday · Alex Jones Show · Hour 1","group":"General","duration":3590,"tvg-logo":""},{"title":"2026-Jun-02, Tuesday · Alex Jones Show · Hour 2","url":"https://ajn.archives.pub/hourly-m4v/20260602_Tue_Alex-Hr2.m4v","episode":"2026-Jun-02, Tuesday · Alex Jones Show · Hour 2","group":"General","duration":3590,"tvg-logo":""},{"title":"2026-Jun-02, Tuesday · Alex Jones Show · Hour 3","url":"https://ajn.archives.pub/hourly-m4v/20260602_Tue_Alex-Hr3.m4v","episode":"2026-Jun-02, Tuesday · Alex Jones Show · Hour 3","group":"General","duration":3590,"tvg-logo":""},{"title":"2026-Jun-02, Tuesday · Alex Jones Show · Hour 4","url":"https://ajn.archives.pub/hourly-m4v/20260602_Tue_Alex-Hr4.m4v","episode":"2026-Jun-02, Tuesday · Alex Jones Show · Hour 4","group":"General","duration":3590,"tvg-logo":""},{"title":"2026-Jun-02, Tuesday · War Room · Hour 1","url":"https://ajn.archives.pub/hourly-m4v/20260602_Tue_WarRoom-Hr1.m4v","episode":"2026-Jun-02, Tuesday · War Room · Hour 1","group":"General","duration":3590,"tvg-logo":""},{"title":"2026-Jun-02, Tuesday · War Room · Hour 2","url":"https://ajn.archives.pub/hourly-m4v/20260602_Tue_WarRoom-Hr2.m4v","episode":"2026-Jun-02, Tuesday · War Room · Hour 2","group":"General","duration":3590,"tvg-logo":""},{"title":"2026-Jun-02, Tuesday · War Room · Hour 3","url":"https://ajn.archives.pub/hourly-m4v/20260602_Tue_WarRoom-Hr3.m4v","episode":"2026-Jun-02, Tuesday · War Room · Hour 3","group":"General","duration":3590,"tvg-logo":""},{"title":"2026-Jun-03, Wednesday · Alex Jones Show · Hour 1","url":"https://ajn.archives.pub/hourly-m4v/20260603_Wed_Alex-Hr1.m4v","episode":"2026-Jun-03, Wednesday · Alex Jones Show · Hour 1","group":"General","duration":3590,"tvg-logo":""},{"title":"2026-Jun-03, Wednesday · Alex Jones Show · Hour 2","url":"https://ajn.archives.pub/hourly-m4v/20260603_Wed_Alex-Hr2.m4v","episode":"2026-Jun-03, Wednesday · Alex Jones Show · Hour 2","group":"General","duration":3590,"tvg-logo":""},{"title":"2026-Jun-03, Wednesday · Alex Jones Show · Hour 3","url":"https://ajn.archives.pub/hourly-m4v/20260603_Wed_Alex-Hr3.m4v","episode":"2026-Jun-03, Wednesday · Alex Jones Show · Hour 3","group":"General","duration":3590,"tvg-logo":""},{"title":"2026-Jun-03, Wednesday · Alex Jones Show · Hour 4","url":"https://ajn.archives.pub/hourly-m4v/20260603_Wed_Alex-Hr4.m4v","episode":"2026-Jun-03, Wednesday · Alex Jones Show · Hour 4","group":"General","duration":3590,"tvg-logo":""},{"title":"2026-Jun-03, Wednesday · War Room · Hour 1","url":"https://ajn.archives.pub/hourly-m4v/20260603_Wed_WarRoom-Hr1.m4v","episode":"2026-Jun-03, Wednesday · War Room · Hour 1","group":"General","duration":3590,"tvg-logo":""},{"title":"2026-Jun-03, Wednesday · War Room · Hour 2","url":"https://ajn.archives.pub/hourly-m4v/20260603_Wed_WarRoom-Hr2.m4v","episode":"2026-Jun-03, Wednesday · War Room · Hour 2","group":"General","duration":3590,"tvg-logo":""},{"title":"2026-Jun-03, Wednesday · War Room · Hour 3","url":"https://ajn.archives.pub/hourly-m4v/20260603_Wed_WarRoom-Hr3.m4v","episode":"2026-Jun-03, Wednesday · War Room · Hour 3","group":"General","duration":3590,"tvg-logo":""},{"title":"2026-Jun-04, Thursday · Alex Jones Show · Hour 1","url":"https://ajn.archives.pub/hourly-m4v/20260604_Thu_Alex-Hr1.m4v","episode":"2026-Jun-04, Thursday · Alex Jones Show · Hour 1","group":"General","duration":3590,"tvg-logo":""},{"title":"2026-Jun-04, Thursday · Alex Jones Show · Hour 2","url":"https://ajn.archives.pub/hourly-m4v/20260604_Thu_Alex-Hr2.m4v","episode":"2026-Jun-04, Thursday · Alex Jones Show · Hour 2","group":"General","duration":3590,"tvg-logo":""},{"title":"2026-Jun-04, Thursday · Alex Jones Show · Hour 3","url":"https://ajn.archives.pub/hourly-m4v/20260604_Thu_Alex-Hr3.m4v","episode":"2026-Jun-04, Thursday · Alex Jones Show · Hour 3","group":"General","duration":3590,"tvg-logo":""},{"title":"2026-Jun-04, Thursday · Alex Jones Show · Hour 4","url":"https://ajn.archives.pub/hourly-m4v/20260604_Thu_Alex-Hr4.m4v","episode":"2026-Jun-04, Thursday · Alex Jones Show · Hour 4","group":"General","duration":3590,"tvg-logo":""},{"title":"2026-Jun-04, Thursday · War Room · Hour 1","url":"https://ajn.archives.pub/hourly-m4v/20260604_Thu_WarRoom-Hr1.m4v","episode":"2026-Jun-04, Thursday · War Room · Hour 1","group":"General","duration":3590,"tvg-logo":""},{"title":"2026-Jun-04, Thursday · War Room · Hour 2","url":"https://ajn.archives.pub/hourly-m4v/20260604_Thu_WarRoom-Hr2.m4v","episode":"2026-Jun-04, Thursday · War Room · Hour 2","group":"General","duration":3590,"tvg-logo":""},{"title":"2026-Jun-04, Thursday · War Room · Hour 3","url":"https://ajn.archives.pub/hourly-m4v/20260604_Thu_WarRoom-Hr3.m4v","episode":"2026-Jun-04, Thursday · War Room · Hour 3","group":"General","duration":3590,"tvg-logo":""},{"title":"2026-Jun-05, Friday · Alex Jones Show · Hour 1","url":"https://ajn.archives.pub/hourly-m4v/20260605_Fri_Alex-Hr1.m4v","episode":"2026-Jun-05, Friday · Alex Jones Show · Hour 1","group":"General","duration":3590,"tvg-logo":""},{"title":"2026-Jun-05, Friday · Alex Jones Show · Hour 2","url":"https://ajn.archives.pub/hourly-m4v/20260605_Fri_Alex-Hr2.m4v","episode":"2026-Jun-05, Friday · Alex Jones Show · Hour 2","group":"General","duration":3590,"tvg-logo":""},{"title":"2026-Jun-05, Friday · Alex Jones Show · Hour 3","url":"https://ajn.archives.pub/hourly-m4v/20260605_Fri_Alex-Hr3.m4v","episode":"2026-Jun-05, Friday · Alex Jones Show · Hour 3","group":"General","duration":3590,"tvg-logo":""},{"title":"2026-Jun-05, Friday · Alex Jones Show · Hour 4","url":"https://ajn.archives.pub/hourly-m4v/20260605_Fri_Alex-Hr4.m4v","episode":"2026-Jun-05, Friday · Alex Jones Show · Hour 4","group":"General","duration":3590,"tvg-logo":""},{"title":"2026-Jun-05, Friday · War Room · Hour 1","url":"https://ajn.archives.pub/hourly-m4v/20260605_Fri_WarRoom-Hr1.m4v","episode":"2026-Jun-05, Friday · War Room · Hour 1","group":"General","duration":3590,"tvg-logo":""},{"title":"2026-Jun-05, Friday · War Room · Hour 2","url":"https://ajn.archives.pub/hourly-m4v/20260605_Fri_WarRoom-Hr2.m4v","episode":"2026-Jun-05, Friday · War Room · Hour 2","group":"General","duration":3590,"tvg-logo":""},{"title":"2026-Jun-05, Friday · War Room · Hour 3","url":"https://ajn.archives.pub/hourly-m4v/20260605_Fri_WarRoom-Hr3.m4v","episode":"2026-Jun-05, Friday · War Room · Hour 3","group":"General","duration":3590,"tvg-logo":""}];
+var segmentWatchdogTimer = null;
+
+var currentIndex = 0;
+var video = document.getElementById('video-player');
+var audio = document.getElementById('audio-player');
+var guideStrip = document.getElementById('guide-strip');
+
+function formatTime(seconds) {
+  var h=Math.floor(seconds/3600).toString().padStart(2,'0');
+  var m=Math.floor((seconds%3600)/60).toString().padStart(2,'0');
+  var s=Math.floor(seconds%60).toString().padStart(2,'0');
+  return h+':'+m+':'+s;
+}
+
+function updatePlayedTime() {
+  var activeEl = getActiveMediaElement();
+  if(activeEl && activeEl.currentTime) document.getElementById('played-time').textContent=formatTime(activeEl.currentTime);
+}
+
+function updateClock() {
+  document.getElementById('clock').textContent=new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit',second:'2-digit'});
+}
+
+function calculateNextStart() {
+  var activeEl = getActiveMediaElement();
+  if(!activeEl || !activeEl.duration) return;
+  var remaining=activeEl.duration-activeEl.currentTime;
+  var nextStart=new Date(Date.now()+remaining*1000);
+  document.getElementById('next-time').textContent=nextStart.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
+}
+
+function renderGuideStrip() {
+  guideStrip.innerHTML='';
+  playlist.forEach(function(item, index) {
+    var guideItem=document.createElement('div');
+    guideItem.className='guide-item'+(index===currentIndex?' current':'');
+    guideItem.innerHTML='<div class="guide-title">'+item.title+'</div><div class="guide-time">#'+(index+1)+' \u2022 '+(item.group||'')+'</div>';
+    guideItem.addEventListener('click', function(){ playMovie(index); });
+    guideStrip.appendChild(guideItem);
+  });
+  var current=guideStrip.querySelector('.current');
+  if(current) current.scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'});
+}
+
+function startSegmentWatchdog() {
+  if (segmentWatchdogTimer) clearInterval(segmentWatchdogTimer);
+  segmentWatchdogTimer = setInterval(function() {
+    var item = playlist[currentIndex];
+    var player = getActiveMediaElement();
+    if (!player || !item) return;
+    player.ontimeupdate = function() {
+      if (player.currentTime >= item.duration) playNext();
+    };
+  }, 500);
+}
+
+function startAudioSnapper() {
+  if (audioSnapperTimer) clearInterval(audioSnapperTimer);
+  audioSnapperTimer = setInterval(function() {
+    var activeEl = getActiveMediaElement();
+    if (!activeEl || !isFinite(activeEl.currentTime)) return;
+    var snapped = Math.round(activeEl.currentTime * 10) / 10;
+    if (Math.abs(activeEl.currentTime - snapped) > 0.01) {
+      activeEl.currentTime = snapped;
+    }
+  }, 100);
+}
+
+function playNext() {
+  playMovie(currentIndex + 1);
+}
+
+function playMovie(index) {
+  if(index<0||index>=playlist.length) index=0;
+  currentIndex=index;
+  var movie=playlist[index];
+  var nextMovie=playlist[(index+1)%playlist.length];
+  document.getElementById('now-playing').textContent=movie.title;
+  document.getElementById('now-playing').innerText=movie.title;
+  document.getElementById('next-title').textContent=nextMovie?nextMovie.title:'...';
+  var isAudio=isAudioFile(movie.url);
+  if(isAudio) {
+    switchToAudioMode(movie.title);
+    audio.src=movie.url;
+  } else {
+    switchToVideoMode(); hideAudioPlayOverlay();
+    video.src=movie.url;
+    loadSubtitles(video, movie);
+  }
+  var activeEl=isAudio?audio:video;
+  if(isAudio && !userHasInteracted) { showAudioPlayOverlay(); }
+  else {
+    if(isAudio && audioContext && audioContext.state==='suspended') { audioContext.resume().then(function(){ ensurePlaybackReady(activeEl); }); }
+    else { ensurePlaybackReady(activeEl); }
+  }
+  renderGuideStrip(); calculateNextStart(); updatePlayedTime(); startSegmentWatchdog(); startAudioSnapper();
+}
+
+video.addEventListener('ended', function(){ resetErrorCount(); playMovie((currentIndex+1)%playlist.length); });
+video.addEventListener('error', function(e){ handleMediaError(e); });
+video.addEventListener('canplay', function(){ resetErrorCount(); });
+video.addEventListener('timeupdate', function(){ updatePlayedTime(); calculateNextStart(); });
+
+audio.addEventListener('ended', function(){ resetErrorCount(); playMovie((currentIndex+1)%playlist.length); });
+audio.addEventListener('error', function(e){ handleMediaError(e); });
+audio.addEventListener('canplay', function(){ resetErrorCount(); });
+audio.addEventListener('timeupdate', function(){ updatePlayedTime(); calculateNextStart(); });
+
+function toggleFullscreen() {
+  if(!document.fullscreenElement && !document.webkitFullscreenElement && !document.mozFullScreenElement) {
+    var el=document.body;
+    if(el.requestFullscreen) el.requestFullscreen();
+    else if(el.webkitRequestFullscreen) el.webkitRequestFullscreen();
+    else if(el.mozRequestFullScreen) el.mozRequestFullScreen();
+  } else {
+    if(document.exitFullscreen) document.exitFullscreen();
+    else if(document.webkitExitFullscreen) document.webkitExitFullscreen();
+    else if(document.mozCancelFullScreen) document.mozCancelFullScreen();
+  }
+}
+
+document.getElementById('control-bubble').addEventListener('click', toggleFullscreen);
+var fsBtn=document.getElementById('fullscreen-btn');
+if(fsBtn) fsBtn.addEventListener('click', toggleFullscreen);
+
+document.addEventListener('keydown', function(e) {
+  if(e.key==='ArrowRight') playMovie((currentIndex+1)%playlist.length);
+  if(e.key==='ArrowLeft') playMovie((currentIndex-1+playlist.length)%playlist.length);
+  var activeEl=getActiveMediaElement();
+  if(e.key===' '){ e.preventDefault(); activeEl.paused?activeEl.play():activeEl.pause(); }
+  if(e.key==='f'||e.key==='F') toggleFullscreen();
+});
+
+window.addEventListener('online', function(){ setTimeout(function(){ playMovie(currentIndex); }, 1000); }, { passive:true });
+
+initAudioBanner();
+
+// ── MIDNIGHT ANCHOR — Wall-Clock Sync ─────────────────────────────────────
+// On load, calculate how many seconds have elapsed since midnight (local time)
+// and fast-forward the playlist to the correct position.  This makes Big Horse
+// a deterministic linear broadcast: every viewer who opens the page at the
+// same wall-clock time will see the same content, like a real TV channel.
+function initMidnightAnchor() {
+  var now = new Date();
+  var ptOffsetMs = 7 * 60 * 60 * 1000;
+  var ptNow = new Date(now.getTime() - ptOffsetMs);
+  var ptMidnight = Date.UTC(ptNow.getUTCFullYear(), ptNow.getUTCMonth(), ptNow.getUTCDate(), 0, 0, 0);
+  var secondsPastMidnight = Math.floor((now.getTime() - ptOffsetMs - ptMidnight) / 1000);
+
+  // Compute total playlist duration (cycle length)
+  var totalDuration = 0;
+  for (var p = 0; p < playlist.length; p++) {
+    totalDuration += (playlist[p].duration || 300);
+  }
+
+  if (totalDuration <= 0) { playMovie(0); return; }
+
+  // Wrap past-midnight seconds into the cycle
+  var posInCycle = secondsPastMidnight % totalDuration;
+
+  // Walk the playlist to find which item is airing at posInCycle
+  var acc = 0;
+  var startIndex = 0;
+  var seekOffset = 0;
+  for (var i = 0; i < playlist.length; i++) {
+    var itemDur = playlist[i].duration || 300;
+    if (acc + itemDur > posInCycle) {
+      startIndex = i;
+      seekOffset = posInCycle - acc;
+      break;
+    }
+    acc += itemDur;
+  }
+
+  // Start the correct item, then seek to the right position within it
+  playMovie(startIndex);
+  var seekTarget = seekOffset;
+  var activeEl = getActiveMediaElement();
+  if (activeEl && seekTarget > 0) {
+    // Wait for enough metadata to allow seeking
+    var onMeta = function() {
+      activeEl.removeEventListener('loadedmetadata', onMeta);
+      if (seekTarget > 0 && isFinite(activeEl.duration)) {
+        activeEl.currentTime = Math.min(seekTarget, activeEl.duration - 1);
+      }
+    };
+    if (isFinite(activeEl.duration) && activeEl.duration > 0) {
+      activeEl.currentTime = Math.min(seekTarget, activeEl.duration - 1);
+    } else {
+      activeEl.addEventListener('loadedmetadata', onMeta);
+    }
+  }
+  var syncLabel = document.getElementById('sync-time-label');
+  if (syncLabel) syncLabel.textContent = 'SYNC_TIME: ' + secondsPastMidnight;
+}
+
+function pingSyncTick() {
+  if (!syncTick) syncTick = document.getElementById('sync-tick');
+  if (!syncTick) return;
+  syncTick.style.opacity = '1';
+  if (syncTickTimer) clearTimeout(syncTickTimer);
+  syncTickTimer = setTimeout(function(){ syncTick.style.opacity = '0'; }, 350);
+}
+
+if(playlist.length > 0) {
+  renderGuideStrip();
+  initMidnightAnchor();
+  updateClock();
+  setInterval(updateClock, 1000);
+} else {
+  document.getElementById('now-playing').textContent = 'No videos in playlist';
+}
+</script>
+
+</body></html>
